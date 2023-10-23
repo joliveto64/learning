@@ -1103,14 +1103,14 @@ class BinaryTree {
   insert(data, node = this.root) {
     let newNode = new BinaryTreeNode(data);
 
-    if (!root) {
+    if (!this.root) {
       this.root = newNode;
       return;
     }
 
     if (data < node.data) {
       if (!node.left) {
-        node.left = new BinaryTreeNode(data);
+        node.left = newNode;
       } else {
         this.insert(data, node.left);
       }
@@ -1118,10 +1118,23 @@ class BinaryTree {
 
     if (data > node.data) {
       if (!node.right) {
-        node.right = new BinaryTreeNode(data);
+        node.right = newNode;
       } else {
         this.insert(data, node.right);
       }
     }
+  }
+}
+
+// calculate max depth of binary tree
+
+function maxDepthBinaryTree(node) {
+  if (!node) {
+    return zero;
+  } else {
+    let leftDepth = maxDepthBinaryTree(node.left);
+    let rightDepth = maxDepthBinaryTree(node.right);
+
+    return Math.max(leftDepth, rightDepth) + 1;
   }
 }
