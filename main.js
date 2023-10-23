@@ -585,18 +585,6 @@ class LeastRecentlyUsedStorage {
 
 let storage = new LeastRecentlyUsedStorage(5);
 
-// storage.put("a", 1);
-// storage.put("b", 2);
-// storage.put("c", 3);
-// console.log(storage.get("a"));
-// console.log(storage.get("e"));
-// storage.put("d", 4);
-// storage.put("a", 10);
-
-// for (let [key, value] of storage.cache.entries()) {
-//   console.log(key, value);
-// }
-
 class leastFrequentlyUsedStorage {
   constructor(maxSize) {
     this.cache = new Map();
@@ -637,21 +625,6 @@ class leastFrequentlyUsedStorage {
 
 let storage2 = new leastFrequentlyUsedStorage(3);
 
-// storage2.put("a", 1);
-// storage2.put("b", 2);
-// storage2.put("c", 3);
-
-// storage2.get("a");
-// storage2.get("a");
-// storage2.get("b");
-
-// storage2.put("d", 4);
-// storage2.put("e", 5);
-
-// storage2.cache.forEach((value, key) => {
-//   console.log(key, value);
-// });
-
 class timeToLive {
   constructor() {
     this.cache = new Map();
@@ -675,25 +648,14 @@ class timeToLive {
 
 let storage3 = new timeToLive();
 
-// storage3.put("a", 1);
-// storage3.cache.forEach((value, key) => console.log(key, value));
-
-// setTimeout(() => {
-//   console.log(storage3.get("a"));
-// }, 1000);
-
-// setTimeout(() => {
-//   console.log(storage3.get("a"));
-// }, 5000);
-
 // linked lists
 
-// class Node {
-//   constructor(data, next = null) {
-//     this.data = data;
-//     this.next = next;
-//   }
-// }
+const node = class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+};
 
 class LinkedList {
   constructor() {
@@ -1122,7 +1084,3 @@ class linkedList3 {
     }
   }
 }
-
-// let newList = new linkedList3();
-
-// console.log(newList.getFirst());

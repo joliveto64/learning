@@ -1,6 +1,6 @@
 // double linked list
 
-class Node3 {
+class DoubleLinkedNode {
   constructor(data, prev = null, next = null) {
     this.data = data;
     this.prev = prev;
@@ -8,14 +8,14 @@ class Node3 {
   }
 }
 
-class linkedList3 {
+class DoubleLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
   }
 
   append(data) {
-    let newNode = new Node3(data);
+    let newNode = new DoubleLinkedNode(data);
 
     if (!this.head) {
       this.head = newNode;
@@ -28,7 +28,7 @@ class linkedList3 {
   }
 
   prepend(data) {
-    let newNode = new Node3(data);
+    let newNode = new DoubleLinkedNode(data);
 
     if (!this.head) {
       this.head = newNode;
@@ -41,7 +41,7 @@ class linkedList3 {
   }
 
   insertInside(data) {
-    let newNode = new Node(data);
+    let newNode = new DoubleLinkedNode(data);
 
     if (!this.head) {
       this.head = newNode;
