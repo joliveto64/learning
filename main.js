@@ -1084,3 +1084,44 @@ class linkedList3 {
     }
   }
 }
+
+// binary trees
+
+class BinaryTreeNode {
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+class BinaryTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(data, node = this.root) {
+    let newNode = new BinaryTreeNode(data);
+
+    if (!root) {
+      this.root = newNode;
+      return;
+    }
+
+    if (data < node.data) {
+      if (!node.left) {
+        node.left = new BinaryTreeNode(data);
+      } else {
+        this.insert(data, node.left);
+      }
+    }
+
+    if (data > node.data) {
+      if (!node.right) {
+        node.right = new BinaryTreeNode(data);
+      } else {
+        this.insert(data, node.right);
+      }
+    }
+  }
+}
