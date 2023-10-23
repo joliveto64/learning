@@ -1038,23 +1038,38 @@ class linkedList3 {
   append(data) {
     let newNode = new Node3(data);
 
-    newNode.prev = this.tail;
-    this.tail.next = newNode;
-    this.tail = newNode;
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
   }
 
   prepend(data) {
     let newNode = new Node3(data);
 
-    newNode.next = this.head;
-    this.head.prev = newNode;
-    this.head = newNode;
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
   }
 
   insertInside(data) {
     let newNode = new Node(data);
-    let next = this.head.next;
 
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+
+    let next = this.head.next;
     this.head.next = newNode;
     newNode.prev = this.head;
     newNode.next = next;
@@ -1062,23 +1077,31 @@ class linkedList3 {
   }
 
   deleteFirst() {
+    if (!this.head) return;
     this.head = this.head.next;
   }
 
   deleteLast() {
+    if (!this.head) return;
     this.tail = this.tail.prev;
     this.tail.next = null;
   }
 
   getFirst() {
+    if (!this.head) return;
     return this.head.data;
   }
 
   getLast() {
+    if (!this.head) return;
     return this.tail.data;
   }
 
   getLength() {
+    if (!this.head) {
+      return 0;
+    }
+
     let count = 1;
     let current = this.head;
 
@@ -1090,6 +1113,8 @@ class linkedList3 {
   }
 
   printData() {
+    if (!this.head) return;
+
     let current = this.head;
     while (current) {
       console.log(current.data);
@@ -1097,3 +1122,7 @@ class linkedList3 {
     }
   }
 }
+
+let newList = new linkedList3();
+
+console.log(newList.getFirst());
