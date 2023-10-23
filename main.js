@@ -1123,6 +1123,6 @@ class linkedList3 {
   }
 }
 
-let newList = new linkedList3();
+// let newList = new linkedList3();
 
-console.log(newList.getFirst());
+// console.log(newList.getFirst());
