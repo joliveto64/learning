@@ -1087,44 +1087,44 @@ class linkedList3 {
 
 // binary trees
 
-class BinaryTreeNode {
-  constructor(data, left = null, right = null) {
-    this.data = data;
-    this.left = left;
-    this.right = right;
-  }
-}
+// class BinaryTreeNode {
+//   constructor(data, left = null, right = null) {
+//     this.data = data;
+//     this.left = left;
+//     this.right = right;
+//   }
+// }
 
-class BinaryTree {
-  constructor() {
-    this.root = null;
-  }
+// class BinaryTree {
+//   constructor() {
+//     this.root = null;
+//   }
 
-  insert(data, node = this.root) {
-    let newNode = new BinaryTreeNode(data);
+//   insert(data, node = this.root) {
+//     let newNode = new BinaryTreeNode(data);
 
-    if (!this.root) {
-      this.root = newNode;
-      return;
-    }
+//     if (!this.root) {
+//       this.root = newNode;
+//       return;
+//     }
 
-    if (data < node.data) {
-      if (!node.left) {
-        node.left = newNode;
-      } else {
-        this.insert(data, node.left);
-      }
-    }
+//     if (data < node.data) {
+//       if (!node.left) {
+//         node.left = newNode;
+//       } else {
+//         this.insert(data, node.left);
+//       }
+//     }
 
-    if (data > node.data) {
-      if (!node.right) {
-        node.right = newNode;
-      } else {
-        this.insert(data, node.right);
-      }
-    }
-  }
-}
+//     if (data > node.data) {
+//       if (!node.right) {
+//         node.right = newNode;
+//       } else {
+//         this.insert(data, node.right);
+//       }
+//     }
+//   }
+// }
 
 // calculate max depth of binary tree
 

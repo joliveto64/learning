@@ -147,7 +147,7 @@ class BinaryTree {
 
 function maxDepthBinaryTree(node) {
   if (!node) {
-    return zero;
+    return 0;
   } else {
     let leftDepth = maxDepthBinaryTree(node.left);
     let rightDepth = maxDepthBinaryTree(node.right);
@@ -155,3 +155,52 @@ function maxDepthBinaryTree(node) {
     return Math.max(leftDepth, rightDepth) + 1;
   }
 }
+
+// flatten binary tree
+
+let myBinaryTree = new BinaryTree();
+
+myBinaryTree.insert(4);
+myBinaryTree.insert(3);
+myBinaryTree.insert(5);
+myBinaryTree.insert(7);
+myBinaryTree.insert(1);
+myBinaryTree.insert(6);
+myBinaryTree.insert(8);
+myBinaryTree.insert(2);
+
+function flattenBinaryTree(node) {
+  return [...flattenLeftValues(node), node.data, ...flattenRightValues(node)];
+}
+
+function flattenRightValues(node) {
+  let arr = [];
+  node = node.right;
+
+  while (node) {
+    node.left ? arr.push(node.left.data) : null;
+    arr.push(node.data);
+
+    if (!node.right) {
+      return arr;
+    }
+    node = node.right;
+  }
+}
+
+function flattenLeftValues(node) {
+  let arr = [];
+  node = node.left;
+
+  while (node) {
+    node.right ? arr.unshift(node.right.data) : null;
+    arr.unshift(node.data);
+
+    if (!node.left) {
+      return arr;
+    }
+    node = node.left;
+  }
+}
+
+console.log(flattenBinaryTree(myBinaryTree.root));
