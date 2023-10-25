@@ -169,10 +169,13 @@ myBinaryTree.insert(6);
 myBinaryTree.insert(8);
 myBinaryTree.insert(2);
 
+// this function flattens the tree into an array with two helper functions
 function flattenBinaryTree(node) {
+  // returns the left data, root data, right data in a new array with the spread (...) operator
   return [...flattenLeftValues(node), node.data, ...flattenRightValues(node)];
 }
 
+// this function returns an array with the values from the right side of the tree
 function flattenRightValues(node) {
   let arr = [];
   node = node.right;
@@ -188,6 +191,7 @@ function flattenRightValues(node) {
   }
 }
 
+// this functions returns an array with the values from the left side of the tree
 function flattenLeftValues(node) {
   let arr = [];
   node = node.left;
@@ -204,3 +208,22 @@ function flattenLeftValues(node) {
 }
 
 console.log(flattenBinaryTree(myBinaryTree.root));
+
+// red-black trees
+
+class redBlackNode {
+  constructor(data, color, left = null, right = null, parent = null) {
+    this.data = data;
+    this.color = color;
+    this.left = left;
+    this.right = right;
+    this.parent = parent;
+  }
+}
+
+class redBlackTree {
+  constructor() {
+    this.NIL = new redBlackNode(null, "black");
+    this.root = this.NIL;
+  }
+}
