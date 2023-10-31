@@ -20,9 +20,9 @@ function mergeTwoLists(list1, list2) {
   return head.next;
 }
 
-// leetcode #2 add two numbers: You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+// leetcode #2 add two numbers: You didn't assign this one, I already started it so I wanted to finish.
 
-// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+// You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
 // note: this solution worked for 1565 / 1568 test cases. The solution breaks down according to chatGPT with very large numbers (javascript thing). It said the only work around was a completely different solution which was mathy and I didn't bother.
 
@@ -83,3 +83,38 @@ function addAndReverseNumbers(arr1, arr2) {
 }
 
 addTwoNumbers(node1, node4);
+
+// leetcode 83. remove duplicates from sorted list
+
+node10 = new singlyLinkedNode(3);
+node11 = new singlyLinkedNode(2, node10);
+node12 = new singlyLinkedNode(1, node11);
+node13 = new singlyLinkedNode(1, node12);
+
+function removeDuplicates(root) {
+  let head = root;
+  let current = head;
+  //   keep track of current node as reference
+  let trackedNode = head;
+  // while loop to traverse list
+  while (current) {
+    // if previous current === current, continue
+    // once previous current !== current, adjust pointer
+    if (trackedNode.val !== current.val) {
+      trackedNode.next = current;
+      trackedNode = current;
+    }
+
+    if (current === null) {
+      trackedNode.next = null;
+    }
+    current = current.next;
+  }
+  // return head of linked list
+  console.log(head, head.next, head.next.next);
+  return head;
+}
+
+// notes for above problem. Too many issues with GPT responses to be fully practical. Worked well for clarifying, example and function signature, hit or miss after that. Solved this problem in 40min with a little trial and error in leet for corner cases which resulted in my adding lines 108-110
+
+console.log(removeDuplicates(node13));
