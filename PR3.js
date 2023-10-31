@@ -40,11 +40,11 @@ class BinaryTree {
 
 let myBinaryTree = new BinaryTree();
 
-myBinaryTree.insert(5);
-myBinaryTree.insert(10);
+myBinaryTree.insert(1);
+myBinaryTree.insert(2);
 myBinaryTree.insert(3);
-myBinaryTree.insert(18);
-myBinaryTree.insert(6);
+myBinaryTree.insert(4);
+myBinaryTree.insert(5);
 myBinaryTree.insert(9);
 
 /**
@@ -66,7 +66,7 @@ function flattenBinaryTree(root) {
   ];
 }
 
-console.log(flattenBinaryTree(myBinaryTree.root));
+// console.log(flattenBinaryTree(myBinaryTree.root));
 
 // fixing the cache problem
 
@@ -129,26 +129,4 @@ class leastRecentlyUsedCache {
     if (node === this.head) this.head = node.next;
     if (node === this.tail) this.tail = node.prev;
   }
-}
-
-// leetcode merge two sorted lists (#21)
-
-function mergeTwoLists(list1, list2) {
-  let head = new ListNode();
-  let current = head;
-
-  while (list1 && list2) {
-    if (list1.val <= list2.val) {
-      current.next = list1;
-      list1 = list1.next;
-    } else {
-      current.next = list2;
-      list2 = list2.next;
-    }
-    current = current.next;
-  }
-
-  current.next = list1 ? list1 : list2;
-
-  return head.next;
 }
