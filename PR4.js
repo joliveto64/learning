@@ -73,6 +73,7 @@ function addTwoNumbers(list1, list2) {
   return head;
 }
 
+// helper function
 function addAndReverseNumbers(arr1, arr2) {
   let num1 = arr1.join("");
   let num2 = arr2.join("");
@@ -118,3 +119,46 @@ function removeDuplicates(root) {
 // notes for above problem. Too many issues with GPT responses to be fully practical. Worked well for clarifying, example and function signature, hit or miss after that. Solved this problem in 40min with a little trial and error in leet for corner cases which resulted in my adding lines 108-110
 
 console.log(removeDuplicates(node13));
+
+// reverse linked list
+
+function reverseList(head) {
+  let prev = null;
+  let current = head;
+  // traverse list and adjust pointers at each iteration
+  while (current) {
+    let nextTemp = current.next;
+    current.next = prev;
+    prev = current;
+    current = nextTemp;
+  }
+
+  // return head of reversed list
+  return prev;
+}
+
+reverseList(node13);
+
+// white flaf on the problem above. I had the general idea but I couldn't organize the code properly. Worked about 1:15 before I asked for the answer, kept getting infinite loops. I kept using an if block inside of the while loop which was unecessary, no good reason for it just was a common theme I think from working on this stuff. Couldn't figure out if I needed to track 3 nodes at once or could do it with just 2
+
+// are the trees the same problem. this is my solution which chatGPT suggested I ass the strignify because I didn't know the equality operator was by reference to object not by directly comparing the values. The rest should look familiar. This passes most but not all tests (having a null node one one tree but not the other failed it)
+
+var isSameTree = function (p, q) {
+  return JSON.stringify(flatten(p)) == JSON.stringify(flatten(q));
+};
+
+function flatten(root) {
+  if (root === null) return [];
+
+  return [...flatten(root.left), root.val, ...flatten(root.right)];
+}
+
+// this is chatGPT solution that passes all tests
+
+var isSameTree = function (p, q) {
+  if (p === null && q === null) return true;
+  if (p === null || q === null) return false;
+  if (p.val !== q.val) return false;
+
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
