@@ -116,11 +116,13 @@ function removeDuplicates(root) {
   return head;
 }
 
-// notes for above problem. Too many issues with GPT responses to be fully practical. Worked well for clarifying, example and function signature, hit or miss after that. Solved this problem in 40min with a little trial and error in leet for corner cases which resulted in my adding lines 108-110
+// notes for above problem. Too many issues with GPT responses to be fully practical. Worked well for clarifying, example and function signature, hit or miss after that. Solved this problem in 40min with a little trial and error in leet for corner cases which resulted in my adding lines 109-111
 
 // console.log(removeDuplicates(node13));
 
 // reverse linked list
+
+//I had the general idea but I couldn't organize the code properly. Worked about 1:15 before I asked for the answer, kept getting infinite loops. I kept using an if block inside of the while loop which was unecessary, no good reason for it just was a common theme I think from working on this stuff. Couldn't figure out if I needed to track 3 nodes at once or could do it with just 2
 
 function reverseList(head) {
   let prev = null;
@@ -139,9 +141,7 @@ function reverseList(head) {
 
 reverseList(node13);
 
-// white flaf on the problem above. I had the general idea but I couldn't organize the code properly. Worked about 1:15 before I asked for the answer, kept getting infinite loops. I kept using an if block inside of the while loop which was unecessary, no good reason for it just was a common theme I think from working on this stuff. Couldn't figure out if I needed to track 3 nodes at once or could do it with just 2
-
-// are the trees the same problem. this is my solution which chatGPT suggested I ass the strignify because I didn't know the equality operator was by reference to object not by directly comparing the values. The rest should look familiar. This passes most but not all tests (having a null node one one tree but not the other failed it)
+//are the trees the same problem. this is my solution which chatGPT suggested I add the strigify because I didn't know the equality operator was by reference to object not by directly comparing the values. The rest should look familiar. This passes most but not all tests (having a null node one one tree but not the other failed it)
 
 var isSameTree = function (p, q) {
   return JSON.stringify(flatten(p)) == JSON.stringify(flatten(q));
