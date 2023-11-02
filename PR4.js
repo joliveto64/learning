@@ -69,7 +69,7 @@ function addTwoNumbers(list1, list2) {
   }
 
   //   return head of new list
-  console.log(head, head.next, head.next.next);
+  //      .log(head, head.next, head.next.next);
   return head;
 }
 
@@ -112,13 +112,13 @@ function removeDuplicates(root) {
     current = current.next;
   }
   // return head of linked list
-  console.log(head, head.next, head.next.next);
+  //   console.log(head, head.next, head.next.next);
   return head;
 }
 
 // notes for above problem. Too many issues with GPT responses to be fully practical. Worked well for clarifying, example and function signature, hit or miss after that. Solved this problem in 40min with a little trial and error in leet for corner cases which resulted in my adding lines 108-110
 
-console.log(removeDuplicates(node13));
+// console.log(removeDuplicates(node13));
 
 // reverse linked list
 
@@ -162,3 +162,37 @@ var isSameTree = function (p, q) {
 
   return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 };
+
+// leetcode 112 Path Sum
+// knew I had to do recursive calls, beyond that I had no chance on this one. Original thought was to add as I went but that wasn't gonna work
+
+function hasPathSum(root, targetSum) {
+  return dfSearch(root, targetSum);
+}
+
+function dfSearch(node, targetSum, total = 0) {
+  if (!node && total === targetSum) {
+  }
+
+  total += node.val;
+  console.log(total);
+
+  dfSearch(root.left);
+  dfSearch(root.left);
+}
+
+// chat gpt solution which works
+function hasPathSum(root, targetSum) {
+  if (root === null) {
+    return false;
+  }
+
+  if (root.left === null && root.right === null) {
+    return targetSum === root.val;
+  }
+
+  return (
+    hasPathSum(root.left, targetSum - root.val) ||
+    hasPathSum(root.right, targetSum - root.val)
+  );
+}
