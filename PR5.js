@@ -58,6 +58,8 @@ function ransomNote(magazine, letter) {
 // time complexty is n^2 because you have to look through n letters each for n magazine letters potentially.
 // space complexity is n because it doesn't change i'm just comparing
 
+// *************************************************************************************
+// *************************************************************************************
 // here is a version that is O(n)
 function ransomNote2(magazine, letter) {
   let magazineMap = new Map();
@@ -77,3 +79,28 @@ function ransomNote2(magazine, letter) {
   return true;
 }
 // O(n + n) reduces to O(n)
+
+// *************************************************************************************
+// *************************************************************************************
+// 4. Given a stack of 2 to 5 unsorted, numbered sticky notes. Give me 1 new sticky note with the sum of them all. Assume the person can add 2 numbers together
+
+const arrayToSum = [1, 2, 3, 4, 5];
+
+function sum(arr) {
+  // take first sticky note from the stack
+  let firstNum = arr[0];
+  // write down the number from the note in step 1 on a new note
+  let total = firstNum;
+  // take the next note from the stack
+  let secondNum = arr[1];
+  // add the number from the note in step 3 to the number on the new note from step 2
+  total += secondNum;
+  // cross off number on new note from step 2 and write down the total that was added together from step 4
+  // repeat steps 3, 4 and 5 until there are no notes left
+  for (let i = 2; i < arr.length; i++) {
+    total += arr[i];
+  }
+
+  return total;
+}
+// time complexity is O(n because it looks at every item in the array once)
