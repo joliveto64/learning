@@ -31,7 +31,7 @@ function reverseStack(array) {
 // 3. Write a ransom note (you're given a magazine, and a copy of the letter - you need to  cut out letters from the magazine to make the letter. Lmk if it's not possible)
 
 let magazine = ["a", "i", "x", "o", "q", "e", "h", "g"];
-let letter = ["h", "i", "x", "k"];
+let letter = ["h", "i", "x", "g"];
 
 // NOTE: my comments didn't make sense for code in their original order. I took the comments and found a more appropriate order for them
 
@@ -50,10 +50,30 @@ function ransomNote(magazine, letter) {
       }
     }
     // quit if no match is found and say "not possible"
-    if (!matchFound) return "not possible";
+    if (!matchFound) return false;
   }
   // repeat steps 2, 3, 4 and 5 until all letters have been found
-  return "all letters found";
+  return true;
 }
 // time complexty is n^2 because you have to look through n letters each for n magazine letters potentially.
 // space complexity is n because it doesn't change i'm just comparing
+
+// here is a version that is O(n)
+function ransomNote2(magazine, letter) {
+  let magazineMap = new Map();
+
+  //   this loop is O(n)
+  for (let i = 0; i < magazine.length; i++) {
+    magazineMap.set(magazine[i], i);
+  }
+
+  //   this loop is also O(n)
+  for (let i = 0; i < letter.length; i++) {
+    if (!magazineMap.get(letter[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+// O(n + n) reduces to O(n)
