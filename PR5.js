@@ -132,7 +132,7 @@ function sum(arr) {
 
 // *************************************************************************************
 // *************************************************************************************
-// Combine 2 stacks of sticky notes into 1 sorted stack
+// 5. Combine 2 stacks of sticky notes into 1 sorted stack
 // One stack has 10 stickies, is sorted from smallest to largest, and each number is between 1 - 100
 // The other stack has 15 stickies, is also sorted from smallest to largest and each number is between 1 - 100
 // Assume the person can compare 2 numbers and see which is bigger
@@ -189,4 +189,133 @@ function mergeSortedArrays(arr1, arr2) {
 
 let firstStack = [1, 2, 3, 4];
 let secondStack = [3, 5, 100];
-console.log(mergeSortedArrays(firstStack, secondStack));
+// console.log(mergeSortedArrays(firstStack, secondStack));
+
+// 6.  Sort 30 Numbers 1-100
+
+// gonna try to solve this different than I did before (my steps were like bubble sort I think) per our last talk
+
+function sort30Nums(arr) {
+  //  create"buckets" to divide numbers
+  let newArr = [];
+  for (let i = 1; i <= 10; i++) {
+    newArr.push([]);
+  }
+
+  // loop and place into buckets
+  for (let i = 0; i < arr.length; i++) {
+    let current = arr[i];
+
+    if (current <= 10) {
+      newArr[0].push(current);
+    }
+
+    if (current >= 11 && current <= 20) {
+      newArr[1].push(current);
+    }
+
+    if (current >= 21 && current <= 30) {
+      newArr[2].push(current);
+    }
+
+    if (current >= 31 && current <= 40) {
+      newArr[3].push(current);
+    }
+
+    if (current >= 41 && current <= 50) {
+      newArr[4].push(current);
+    }
+
+    if (current >= 51 && current <= 60) {
+      newArr[5].push(current);
+    }
+
+    if (current >= 61 && current <= 70) {
+      newArr[6].push(current);
+    }
+
+    if (current >= 71 && current <= 80) {
+      newArr[7].push(current);
+    }
+
+    if (current >= 81 && current <= 90) {
+      newArr[8].push(current);
+    }
+
+    if (current >= 91 && current <= 100) {
+      newArr[9].push(current);
+    }
+  }
+  // sort individual buckets
+
+  for (let bucket of newArr) {
+    let swapMade;
+    do {
+      swapMade = false;
+      for (let i = 0; i < bucket.length - 1; i++) {
+        if (bucket[i + 1] < bucket[i]) {
+          let temp = bucket[i];
+          bucket[i] = bucket[i + 1];
+          bucket[i + 1] = temp;
+          swapMade = true;
+        }
+      }
+    } while (swapMade);
+  }
+
+  // merge buckets in order
+  return [
+    ...newArr[0],
+    ...newArr[1],
+    ...newArr[2],
+    ...newArr[3],
+    ...newArr[4],
+    ...newArr[5],
+    ...newArr[6],
+    ...newArr[7],
+    ...newArr[8],
+    ...newArr[9],
+  ];
+}
+
+let arrayOf30 = [
+  100, 1, 20, 34, 68, 96, 46, 37, 86, 77, 44, 33, 29, 1, 35, 99, 34, 71, 82, 73,
+  59, 67, 45, 23, 12, 21, 43, 54, 65, 76,
+];
+
+// console.log(sort30Nums(arrayOf30));
+
+// *************************************************************************************
+// *************************************************************************************
+
+// 7. Given a stack of sticky notes with letters on them, take all the odd ones and put them at the front (eg: D,E,F,G --> D,F then E,G since D and F are the 1st and 3rd sticky, since 1 and 3 are odd numbers). Assume the person can count and tell if a number is even or odd.
+
+function moveOddsToFront(arr) {
+  // write down the number 1
+  let num = 1;
+  // look at the note at the top of the stack
+  let firstLetter = arr[0];
+  // if the number in your head is an odd number, remove the note from the previous step and place it to the side to start a new stack
+  let newStack = [];
+  if (num % 2 !== 0) {
+    newStack.push(firstLetter);
+    arr.splice(0, 1);
+  }
+
+  // 4. if there is a next note, look at it and increase the number you wrote down by 1
+  // 5. if the number in your head is an odd number, remove the note from the previous step and place at the bottom of the new stack, go to step 4
+  for (let i = 0; i < arr.length; i++) {
+    num++;
+    console.log(num);
+    if (num % 2 !== 0) {
+      newStack.push(arr[i]);
+      arr.splice(i, 1);
+    }
+  }
+  // if there is not a next note, take the new stack and place the whole thing, in the same order, on top of the old stack
+  return [...newStack, ...arr];
+}
+
+let arrayToMoveOdds = ["D", "E", "F", "G"];
+
+console.log(moveOddsToFront(arrayToMoveOdds));
