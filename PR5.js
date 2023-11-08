@@ -104,7 +104,6 @@ function ransomNote2(magazine, letter) {
   return true;
 }
 // O(n + n) reduces to O(n)
-console.log(ransomNote2(magazine2, letter2));
 
 // *************************************************************************************
 // *************************************************************************************
@@ -130,3 +129,64 @@ function sum(arr) {
   return total;
 }
 // time complexity is O(n because it looks at every item in the array once)
+
+// *************************************************************************************
+// *************************************************************************************
+// Combine 2 stacks of sticky notes into 1 sorted stack
+// One stack has 10 stickies, is sorted from smallest to largest, and each number is between 1 - 100
+// The other stack has 15 stickies, is also sorted from smallest to largest and each number is between 1 - 100
+// Assume the person can compare 2 numbers and see which is bigger
+
+// steps: https://docs.google.com/document/d/1jEdBPfhesDkx9SbIRwtcFPjVF6Jj8Rt6KVh7z6rmsVU/edit?pli=1
+// i ran into many issues translating my steps to code, so I've half followed them
+
+function mergeSortedArrays(arr1, arr2) {
+  // deal with edge cases
+  if ((!arr1 && !arr2) || (arr1.length < 1 && arr2.length < 1)) return [];
+
+  //   init empty array and start index counters to increment later
+  let newArr = [];
+  let index = 0;
+  let index2 = 0;
+
+  //   while loop to compare values
+  while (arr1[index] || arr2[index2]) {
+    // make sure the index exists
+    let index1Exists = arr1[index] !== undefined;
+    let index2Exists = arr2[index2] !== undefined;
+
+    // if only one exists, push the other
+    if (!index1Exists && index2Exists) {
+      newArr.push(arr2[index2]);
+      index2++;
+    }
+    if (!index2Exists && index1Exists) {
+      newArr.push(arr1[index]);
+      index++;
+    }
+
+    // handle >, < and === cases if both exist
+    if (index1Exists && index2Exists) {
+      if (arr1[index] > arr2[index2]) {
+        newArr.push(arr2[index2]);
+        index2++;
+      } else if (arr2[index2] > arr1[index]) {
+        newArr.push(arr1[index]);
+        index++;
+      } else if (arr1[index] === arr2[index2]) {
+        newArr.push(arr2[index2]);
+        newArr.push(arr1[index]);
+        index++;
+        index2++;
+      }
+    }
+  }
+  //   return the new merged and sorted array
+  return newArr;
+}
+
+// time complexity is n because i look through each array once. n + n is O(n)
+
+let firstStack = [1, 2, 3, 4];
+let secondStack = [3, 5, 100];
+console.log(mergeSortedArrays(firstStack, secondStack));
