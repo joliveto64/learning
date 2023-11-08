@@ -196,6 +196,7 @@ let secondStack = [3, 5, 100];
 // gonna try to solve this different than I did before (my steps were like bubble sort I think) per our last talk
 
 function sort30Nums(arr) {
+  if (!arr || arr.length < 1) return arr;
   //  create"buckets" to divide numbers
   let newArr = [];
   for (let i = 1; i <= 10; i++) {
@@ -291,6 +292,7 @@ let arrayOf30 = [
 // 7. Given a stack of sticky notes with letters on them, take all the odd ones and put them at the front (eg: D,E,F,G --> D,F then E,G since D and F are the 1st and 3rd sticky, since 1 and 3 are odd numbers). Assume the person can count and tell if a number is even or odd.
 
 function moveOddsToFront(arr) {
+  if (!arr || arr.length < 1) return arr;
   // write down the number 1
   let num = 1;
   // look at the note at the top of the stack
@@ -306,7 +308,6 @@ function moveOddsToFront(arr) {
   // 5. if the number in your head is an odd number, remove the note from the previous step and place at the bottom of the new stack, go to step 4
   for (let i = 0; i < arr.length; i++) {
     num++;
-    console.log(num);
     if (num % 2 !== 0) {
       newStack.push(arr[i]);
       arr.splice(i, 1);
@@ -315,7 +316,26 @@ function moveOddsToFront(arr) {
   // if there is not a next note, take the new stack and place the whole thing, in the same order, on top of the old stack
   return [...newStack, ...arr];
 }
-
+// this is O(n) because I look at everything once
 let arrayToMoveOdds = ["D", "E", "F", "G"];
 
-console.log(moveOddsToFront(arrayToMoveOdds));
+// 8. Compute the average of 10 numbers. Assume the person is able to do basic arithmetic on 2 numbers
+
+function calcAverage(arr) {
+  if (!arr || arr.length < 1) return arr;
+  // remember the number 0, this is your number
+  let myNumber = 0;
+  // look at the first number and add it to your number
+  myNumber += arr[0];
+  // look at the next number and add it to your number
+  // if there is a next number, repeat step 3. If there is no next number, go to the next step
+  for (let i = 1; i < arr.length; i++) {
+    myNumber += arr[i];
+  }
+  // divide your number by 10
+  return myNumber / arr.length;
+}
+
+let numsToAverage = [5, 5, 7, 2, 8, 6, 4];
+// this one is O(n) because I look at every number once
+console.log(calcAverage(numsToAverage));
