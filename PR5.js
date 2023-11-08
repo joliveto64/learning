@@ -8,6 +8,7 @@ import { SinglyLinkedList } from "./utils.js";
 let stackToReverse = [1, 2, 3, 4, 5];
 
 function reverseStack(array) {
+  if (!array || array.length <= 1) return array;
   // remove note from top of stack
   let removedItem = array.shift();
   // place note on table to left of stack to begin a new stack
@@ -26,12 +27,23 @@ function reverseStack(array) {
 //   this is fine for short array, not fine for large one
 // space is n, the length of the original array
 
+function reverseStack2(array) {
+  if (!array || array.length <= 1) return array;
+
+  let newArr = [];
+  for (let i = array.length - 1; i >= 0; i--) {
+    newArr.push(array[i]);
+  }
+  return newArr;
+}
+// I believe this is O(n) now. n to loop through once, push() is constant time
+
 // *************************************************************************************
 // *************************************************************************************
 // 3. Write a ransom note (you're given a magazine, and a copy of the letter - you need to  cut out letters from the magazine to make the letter. Lmk if it's not possible)
 
 let magazine = ["h", "h", "i", "j"];
-let letter = ["h", "i", "h"];
+let letter = ["h", "i", "x"];
 
 // NOTE: my comments didn't make sense for code in their original order. I took the comments and found a more appropriate order for them
 
@@ -62,9 +74,15 @@ function ransomNote(magazine, letter) {
 // *************************************************************************************
 // *************************************************************************************
 // here is a version that is O(n)
-function ransomNote2(magazine, letter) {
-  let map = new Map();
+let magazine2 = ["a", "b", "c", "c", "x", "x"];
+let letter2 = [];
 
+function ransomNote2(magazine, letter) {
+  if (!magazine || !letter || magazine.length < 1 || letter.length < 1) {
+    return false;
+  }
+
+  let map = new Map();
   //   this loop is O(n)
   for (let i = 0; i < magazine.length; i++) {
     if (map.has(magazine[i])) {
@@ -73,21 +91,20 @@ function ransomNote2(magazine, letter) {
       map.set(magazine[i], 1);
     }
   }
-  console.log(map.entries());
 
   //   this loop is also O(n)
   for (let i = 0; i < letter.length; i++) {
-    if (map.get(letter[i]) < 1) {
+    if (!map.has(letter[i])) {
       return false;
     } else {
-      map.set(map.get(letter[i]) - 1);
+      map.set(letter[i], map.get(letter[i] - 1));
     }
   }
 
   return true;
 }
 // O(n + n) reduces to O(n)
-console.log(ransomNote2(magazine, letter));
+console.log(ransomNote2(magazine2, letter2));
 
 // *************************************************************************************
 // *************************************************************************************
