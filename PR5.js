@@ -255,7 +255,7 @@ let arrayOf30 = [
   59, 67, 45, 23, 12, 21, 43, 54, 65, 76,
 ];
 
-// not sure on time complexity. I loop once to find max and min which is n, loop again to place items into buckets, so n + n, theh bubble sort of each bucket which is new value (not n) so let's say k^2. So maybe n + k^2 or something like that?
+// not sure on time complexity. I loop once to find max and min which is n, loop again to place items into buckets, so n + n, theh bubble sort of each bucket which is new value (not n) so let's say x^2. So maybe n + x^2 or something like that? update: chat gpt says its  O(n^2/k + 2n + k). n^2/k being general best and n^2 being general worst
 console.log(sort30Nums(arrayOf30));
 
 // *************************************************************************************
@@ -311,3 +311,59 @@ function calcAverage(arr) {
 
 let numsToAverage = [5, 5, 7, 2, 8, 6, 4];
 // this one is O(n) because I look at every number once
+
+// *************************************************************************************
+// *************************************************************************************
+// 9. Multiply 2 big-ish numbers (eg 123 x 456). Assume the person only knows how to multiply 2 single digit numbers (eg 6 x 7 = 42)
+// my steps are specifically for hadwritten and don't really apply here (i tried), so I'm gonna loosely follow the idea
+
+function multiplyNumbers(num1, num2) {
+  // convert to string for looping
+  let string1 = num1.toString();
+  let string2 = num2.toString();
+  let arr = [];
+
+  //   nested loop to multiply each digit from 2 by each from 1
+  let total = 0;
+  for (let i = string2.length - 1; i >= 0; i--) {
+    let carry = 0;
+    let num2 = Number(string2[i]);
+    for (let i = string1.length - 1; i >= 0; i--) {
+      let num1 = Number(string1[i]);
+      arr.unshift((num2 * num1 + carry) % 10);
+      carry = (num2 * num1 - ((num2 * num1) % 10)) / 10;
+
+      console.log(arr, carry);
+    }
+  }
+  return total;
+}
+// white flag too hard
+// looked up chat gpts solution but couldn't understand it that well see below
+console.log(multiplyNumbers(123, 456));
+
+// chat gpt
+function multiply(num1, num2) {
+  var num1Str = String(num1);
+  var num2Str = String(num2);
+  var result = Array(num1Str.length + num2Str.length).fill(0);
+
+  for (var i = num1Str.length - 1; i >= 0; i--) {
+    for (var j = num2Str.length - 1; j >= 0; j--) {
+      var product = num1Str[i] * num2Str[j];
+      var temp = result[i + j + 1] + product;
+
+      result[i + j + 1] = temp % 10; // write the last digit
+      result[i + j] += Math.floor(temp / 10); // handle carry value
+    }
+  }
+
+  while (result[0] === 0) {
+    // get rid of leading zeroes
+    result.shift();
+  }
+
+  return result.length ? result.join("") : "0";
+}
+
+console.log(multiply(123, 456)); // Outputs: '56088'
