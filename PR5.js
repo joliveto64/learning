@@ -30,11 +30,11 @@ function reverseStack(array) {
 function reverseStack2(array) {
   if (!array || array.length <= 1) return array;
 
-  let newArr = [];
+  let buckets = [];
   for (let i = array.length - 1; i >= 0; i--) {
-    newArr.push(array[i]);
+    buckets.push(array[i]);
   }
-  return newArr;
+  return buckets;
 }
 // I believe this is O(n) now. n to loop through once, push() is constant time
 
@@ -79,7 +79,7 @@ let letter2 = [];
 
 function ransomNote2(magazine, letter) {
   if (!magazine || !letter || magazine.length < 1 || letter.length < 1) {
-    return false;
+    return undefined;
   }
 
   let map = new Map();
@@ -145,7 +145,7 @@ function mergeSortedArrays(arr1, arr2) {
   if ((!arr1 && !arr2) || (arr1.length < 1 && arr2.length < 1)) return [];
 
   //   init empty array and start index counters to increment later
-  let newArr = [];
+  let buckets = [];
   let index = 0;
   let index2 = 0;
 
@@ -157,32 +157,32 @@ function mergeSortedArrays(arr1, arr2) {
 
     // if only one exists, push the other
     if (!index1Exists && index2Exists) {
-      newArr.push(arr2[index2]);
+      buckets.push(arr2[index2]);
       index2++;
     }
     if (!index2Exists && index1Exists) {
-      newArr.push(arr1[index]);
+      buckets.push(arr1[index]);
       index++;
     }
 
     // handle >, < and === cases if both exist
     if (index1Exists && index2Exists) {
       if (arr1[index] > arr2[index2]) {
-        newArr.push(arr2[index2]);
+        buckets.push(arr2[index2]);
         index2++;
       } else if (arr2[index2] > arr1[index]) {
-        newArr.push(arr1[index]);
+        buckets.push(arr1[index]);
         index++;
       } else if (arr1[index] === arr2[index2]) {
-        newArr.push(arr2[index2]);
-        newArr.push(arr1[index]);
+        buckets.push(arr2[index2]);
+        buckets.push(arr1[index]);
         index++;
         index2++;
       }
     }
   }
   //   return the new merged and sorted array
-  return newArr;
+  return buckets;
 }
 
 // time complexity is n because i look through each array once. n + n is O(n)
@@ -195,61 +195,39 @@ let secondStack = [3, 5, 100];
 
 // gonna try to solve this different than I did before (my steps were like bubble sort I think) per our last talk
 
-function sort30Nums(arr) {
-  if (!arr || arr.length < 1) return arr;
-  //  create"buckets" to divide numbers
-  let newArr = [];
-  for (let i = 1; i <= 10; i++) {
-    newArr.push([]);
+function sort30Nums(arr, numBuckets = 10) {
+  if (!arr || arr.length < 1) return undefined;
+
+  //  find min and max values
+  let min = Infinity;
+  let max = -Infinity;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+
+  //  create "buckets" to divide numbers
+  let sizeOfBuckets = max - min / numBuckets;
+  let buckets = [];
+  for (let i = 1; i <= numBuckets; i++) {
+    buckets.push([]);
   }
 
   // loop and place into buckets
   for (let i = 0; i < arr.length; i++) {
-    let current = arr[i];
+    let currentVal = arr[i];
 
-    if (current <= 10) {
-      newArr[0].push(current);
-    }
-
-    if (current >= 11 && current <= 20) {
-      newArr[1].push(current);
-    }
-
-    if (current >= 21 && current <= 30) {
-      newArr[2].push(current);
-    }
-
-    if (current >= 31 && current <= 40) {
-      newArr[3].push(current);
-    }
-
-    if (current >= 41 && current <= 50) {
-      newArr[4].push(current);
-    }
-
-    if (current >= 51 && current <= 60) {
-      newArr[5].push(current);
-    }
-
-    if (current >= 61 && current <= 70) {
-      newArr[6].push(current);
-    }
-
-    if (current >= 71 && current <= 80) {
-      newArr[7].push(current);
-    }
-
-    if (current >= 81 && current <= 90) {
-      newArr[8].push(current);
-    }
-
-    if (current >= 91 && current <= 100) {
-      newArr[9].push(current);
-    }
+    // looked up this formula
+    buckets[Math.floor((currentVal - min) / sizeOfBuckets)].push(currentVal);
   }
-  // sort individual buckets
 
-  for (let bucket of newArr) {
+  // sort individual buckets
+  for (let bucket of buckets) {
     let swapMade;
     do {
       swapMade = false;
@@ -265,18 +243,11 @@ function sort30Nums(arr) {
   }
 
   // merge buckets in order
-  return [
-    ...newArr[0],
-    ...newArr[1],
-    ...newArr[2],
-    ...newArr[3],
-    ...newArr[4],
-    ...newArr[5],
-    ...newArr[6],
-    ...newArr[7],
-    ...newArr[8],
-    ...newArr[9],
-  ];
+  let sortedBuckets = [];
+  for (let bucket of buckets) {
+    sortedBuckets.push(...bucket);
+  }
+  return sortedBuckets;
 }
 
 let arrayOf30 = [
@@ -284,7 +255,8 @@ let arrayOf30 = [
   59, 67, 45, 23, 12, 21, 43, 54, 65, 76,
 ];
 
-// console.log(sort30Nums(arrayOf30));
+// not sure on time complexity. I loop once to find max and min which is n, loop again to place items into buckets, so n + n, theh bubble sort of each bucket which is new value (not n) so let's say k^2. So maybe n + k^2 or something like that?
+console.log(sort30Nums(arrayOf30));
 
 // *************************************************************************************
 // *************************************************************************************
@@ -292,7 +264,7 @@ let arrayOf30 = [
 // 7. Given a stack of sticky notes with letters on them, take all the odd ones and put them at the front (eg: D,E,F,G --> D,F then E,G since D and F are the 1st and 3rd sticky, since 1 and 3 are odd numbers). Assume the person can count and tell if a number is even or odd.
 
 function moveOddsToFront(arr) {
-  if (!arr || arr.length < 1) return arr;
+  if (!arr || arr.length < 1) return undefined;
   // write down the number 1
   let num = 1;
   // look at the note at the top of the stack
@@ -318,11 +290,12 @@ function moveOddsToFront(arr) {
 }
 // this is O(n) because I look at everything once
 let arrayToMoveOdds = ["D", "E", "F", "G"];
+console.log(moveOddsToFront(arrayToMoveOdds));
 
 // 8. Compute the average of 10 numbers. Assume the person is able to do basic arithmetic on 2 numbers
 
 function calcAverage(arr) {
-  if (!arr || arr.length < 1) return arr;
+  if (!arr || arr.length < 1) return undefined;
   // remember the number 0, this is your number
   let myNumber = 0;
   // look at the first number and add it to your number
@@ -338,4 +311,3 @@ function calcAverage(arr) {
 
 let numsToAverage = [5, 5, 7, 2, 8, 6, 4];
 // this one is O(n) because I look at every number once
-console.log(calcAverage(numsToAverage));
