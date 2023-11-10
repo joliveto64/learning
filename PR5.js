@@ -42,8 +42,8 @@ function reverseStack2(array) {
 // *************************************************************************************
 // 3. Write a ransom note (you're given a magazine, and a copy of the letter - you need to  cut out letters from the magazine to make the letter. Lmk if it's not possible)
 
-let magazine = ["h", "h", "i", "j"];
-let letter = ["h", "i", "x"];
+let magazine = ["h", "i", "j"];
+let letter = ["h", "i", "h", "h"];
 
 // NOTE: my comments didn't make sense for code in their original order. I took the comments and found a more appropriate order for them
 
@@ -55,7 +55,7 @@ function ransomNote(magazine, letter) {
     // look through letters in the magazine, skipping any that are crossed off, in order until you find a match
     for (let j = 0; j < magazine.length; j++) {
       if (letter[i] == magazine[j]) {
-        console.log("match");
+        // console.log("match");
         matchFound = true;
         // if match is found, cross off letter in magazine so it can't be used again
         magazine[j] = null;
@@ -68,6 +68,8 @@ function ransomNote(magazine, letter) {
   return true;
 }
 
+// console.log(ransomNote(magazine, letter));
+
 // time complexty is n^2 because you have to look through n letters each for n magazine letters potentially.
 // space complexity is n because it doesn't change i'm just comparing
 
@@ -75,7 +77,7 @@ function ransomNote(magazine, letter) {
 // *************************************************************************************
 // here is a version that is O(n)
 let magazine2 = ["a", "b", "c", "c", "x", "x"];
-let letter2 = [];
+let letter2 = ["a", "x", "c", "c"];
 
 function ransomNote2(magazine, letter) {
   if (!magazine || !letter || magazine.length < 1 || letter.length < 1) {
@@ -94,16 +96,17 @@ function ransomNote2(magazine, letter) {
 
   //   this loop is also O(n)
   for (let i = 0; i < letter.length; i++) {
-    if (!map.has(letter[i])) {
+    if (!map.get(letter[i]) > 0) {
       return false;
     } else {
-      map.set(letter[i], map.get(letter[i] - 1));
+      map.set(letter[i], map.get(letter[i]) - 1);
     }
   }
 
   return true;
 }
 // O(n + n) reduces to O(n)
+console.log(ransomNote2(magazine2, letter2));
 
 // *************************************************************************************
 // *************************************************************************************
@@ -212,7 +215,8 @@ function sort30Nums(arr, numBuckets = 10) {
   }
 
   //  create "buckets" to divide numbers
-  let sizeOfBuckets = max - min / numBuckets;
+  let sizeOfBuckets = 10;
+  // console.log(sizeOfBuckets);
   let buckets = [];
   for (let i = 1; i <= numBuckets; i++) {
     buckets.push([]);
@@ -256,7 +260,7 @@ let arrayOf30 = [
 ];
 
 // not sure on time complexity. I loop once to find max and min which is n, loop again to place items into buckets, so n + n, theh bubble sort of each bucket which is new value (not n) so let's say x^2. So maybe n + x^2 or something like that? update: chat gpt says its  O(n^2/k + 2n + k). n^2/k being general best and n^2 being general worst
-console.log(sort30Nums(arrayOf30));
+// console.log(sort30Nums(arrayOf30));
 
 // *************************************************************************************
 // *************************************************************************************
@@ -290,7 +294,7 @@ function moveOddsToFront(arr) {
 }
 // this is O(n) because I look at everything once
 let arrayToMoveOdds = ["D", "E", "F", "G"];
-console.log(moveOddsToFront(arrayToMoveOdds));
+// console.log(moveOddsToFront(arrayToMoveOdds));
 
 // 8. Compute the average of 10 numbers. Assume the person is able to do basic arithmetic on 2 numbers
 
@@ -333,14 +337,14 @@ function multiplyNumbers(num1, num2) {
       arr.unshift((num2 * num1 + carry) % 10);
       carry = (num2 * num1 - ((num2 * num1) % 10)) / 10;
 
-      console.log(arr, carry);
+      // console.log(arr, carry);
     }
   }
   return total;
 }
 // white flag too hard
 // looked up chat gpts solution but couldn't understand it that well see below
-console.log(multiplyNumbers(123, 456));
+// console.log(multiplyNumbers(123, 456));
 
 // chat gpt
 function multiply(num1, num2) {
@@ -352,6 +356,7 @@ function multiply(num1, num2) {
     for (var j = num2Str.length - 1; j >= 0; j--) {
       var product = num1Str[i] * num2Str[j];
       var temp = result[i + j + 1] + product;
+      ("");
 
       result[i + j + 1] = temp % 10; // write the last digit
       result[i + j] += Math.floor(temp / 10); // handle carry value
@@ -366,4 +371,45 @@ function multiply(num1, num2) {
   return result.length ? result.join("") : "0";
 }
 
-console.log(multiply(123, 456)); // Outputs: '56088'
+// console.log(multiply(123, 456)); // Outputs: '56088'
+
+function addNum(arr, newNum, itt) {
+  newNum = newNum.reverse();
+  for (let i = 0; i < itt; i++) {
+    newNum.push(0);
+  }
+  arr.push(newNum);
+}
+
+function multiplyNums(numJ, numI) {
+  // convert to string for looping
+  let stringJ = numJ.toString().split("").reverse();
+  let stringI = numI.toString().split("").reverse();
+  let arr = [];
+
+  //   nested loop to multiply each digit from 2 by each from 1
+  let total = 0;
+  for (let i = 0; i < stringI.length; i++) {
+    let lineArr = [];
+    let carry = 0;
+    let numI = Number(stringI[i]);
+    for (let j = 0; j < stringJ.length; j++) {
+      let numJ = Number(stringJ[j]);
+
+      lineArr.push((numI * numJ + carry) % 10);
+      // arr.unshift((numI * numJ + carry) % 10);
+      carry = (numI * numJ - ((numI * numJ) % 10)) / 10;
+
+      // console.log(lineArr, carry);
+    }
+
+    // console.log("====");
+    addNum(arr, lineArr, i);
+  }
+
+  // console.log("============");
+  // arr.forEach((a) => console.log(a));
+  return total;
+}
+
+multiplyNums(123, 456);
