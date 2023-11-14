@@ -4,7 +4,7 @@ import { SinglyLinkedList } from "./utils.js";
 // RANSOM NOTE 2 ///////////////////////////////////////
 ////////////////////////////////////////////////////////
 let magazine2 = ["a", "b", "c", "c", "x", "x"];
-let letter2 = ["a", "x", "c", "c", "z"];
+let letter2 = ["a", "x", "c", "c"];
 
 function ransomNote2(magazine, letter) {
   if (!magazine || !letter || magazine.length < 1 || letter.length < 1) {
@@ -75,7 +75,9 @@ function multiplyNumbers(numJ, numI) {
 
   return total;
 }
-// console.log(multiplyNumbers(123, 456));
+// console.log(multiplyNumbers(9, 456));
+// FIX THIS (2,465)
+// make input strings
 
 // SIMP OLYMPICS ///////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -85,12 +87,12 @@ function multiplyNumbers(numJ, numI) {
 
 2. clarify the question: a row of men each have a rating assigned to them which correlates (not specifies) to the number of BJs they receive. The exact number of BJs does not matter, but if one simp has a higher rating than the simp next to him, the simp with the higher rating must receive more BJs than the simp next to him with the lower rating. I am to specifiy how many BJs each guy receives while following the aforementioned rules. In short, for all adjacent simps, higher rating must have more BJs and lower rating must have lower BJs. Minimum of 1 BJ per simp. Adjacent simps with the same rating don't have to have the same number of BJs, but must follow the other rules
 
-***I would have questions for this one. Because it seems that the number of BJs can equal the number of their rating and the rules will be satisfied. Perhaps I'm also trying to minimize the number of BJs? So, not 100% sure I've comprehended the question entirely. Also would need to know what data type the input is***
+**Clarified the question, must keep BJs to a minimum 
 
 for example:
-[1,2,3,4,5] = [1,2,3,4,5] 5 > 4 > 3 > 2 > 1 rules are met
-[5,5,5,5,5] = [1,1,1,1,1] if I'm trying to minimize BJs (was not stated in instructions) or [5,5,5,5,5] rules are still met
-[10,1,10,1,10] = [2,1,2,1,2] or [10,1,10,1,10] rules are still met
+[1,2,3,4,5] = [1,2,3,4,5] 
+[5,5,5,5,5] = [1,1,1,1,1] 
+[10,1,10,1,10] = [2,1,2,1,2]
 
 3. function signature assuming array
 function simpOlympics(arr) {
@@ -100,10 +102,56 @@ function simpOlympics(arr) {
 }
 */
 
-// 4. returning the same array works so I'm waiting to do this one until we talk so I can get some clarification on the problem
+// 4. brute force. returning the same array works so I'm waiting to do this one until we talk so I can get some clarification on the problem
+
 function simpOlympics(arr) {
-  return arr;
+  // row of sticky notes each labeled 1 -10
+  // 1. write new number on each (make them all 1 to start)
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArr.push(1);
+  }
+
+  let changesMade = true;
+  while (changesMade) {
+    changesMade = false;
+    // 2 look through 1 at a time
+    for (let i = 0; i < arr.length; i++) {
+      let currentRating = arr[i];
+      let nextRating = arr[i + 1];
+      let currentBJs = newArr[i];
+      let nextBJs = newArr[i + 1];
+
+      for (let i = 0; i < arr.length; i++) {
+        let currentRating = arr[i];
+        let nextRating = arr[i + 1];
+        let prevRating = arr[i - 1];
+        let currentBJs = newArr[i];
+        let nextBJs = newArr[i + 1];
+        let prevBJs = newArr[i - 1];
+
+        // 3. if next rating is lower than current rating, increase current num by 1
+        if (currentRating > nextRating && currentBJs <= nextBJs) {
+          newArr[i]++;
+          changesMade = true;
+          // 4. if prev is lower, increase by 1
+        } else if (prevRating < currentRating && currentBJs <= prevBJs) {
+          newArr[i]++;
+          changesMade = true;
+        }
+      }
+      // 6. if no changes made you're done
+    }
+    // 7. new number are the number of BJs for the simps
+    return newArr;
+  }
 }
+
+let rowOfSimps = [1, 5, 7, 8, 3, 4, 2, 9, 10];
+// rowOfSimps.reverse();
+console.log(simpOlympics(rowOfSimps));
+
+// 5. improve solution. my current solution has a lot of looping. I loop once to find the unique numbers, then k times I: loop to find highest number and again loop to delete old numbers and assign them to the new array both n. This would be n + 2(k*n) or kn...?
 
 // RECESS GAME /////////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -187,14 +235,58 @@ function recessGame2(head) {
 // okay so the time is n + n or O(n) and the space is now O(1)
 
 // 7. test! I played around with the numbers below a bunch
-let node1 = new SinglyLinkedNode(1);
-let node2 = new SinglyLinkedNode(4);
-let node3 = new SinglyLinkedNode(1);
-let node4 = new SinglyLinkedNode(2);
-node1.next = node2;
-node2.next = node3;
-node3.next = node4;
-node4.next = node1;
+// let node1 = new SinglyLinkedNode(1);
+// let node2 = new SinglyLinkedNode(4);
+// let node3 = new SinglyLinkedNode(1);
+// let node4 = new SinglyLinkedNode(2);
+// node1.next = node2;
+// node2.next = node3;
+// node3.next = node4;
+// node4.next = node1;
 
-console.log(recessGame(node1));
-console.log(recessGame2(node1));
+// console.log(recessGame(node1));
+// console.log(recessGame2(node1));
+
+// version that doesn't work, ignore. wanted for reference
+// function simpOlympics(arr) {
+//   // row of sticky notes labeled 1-10
+//   // 1.look though and see how many different numbers there are
+//   let map = new Map();
+//   for (let i = 0; i < arr.length; i++) {
+//     let current = arr[i];
+//     map.set(current, true);
+//   }
+
+//   // 2.this is how many numbers counting up from 1 there will be
+//   let uniqueNumbers = map.size;
+
+//   // 3.make the highest number 1, ties allowed
+//   // 4.make the second lowest 2, ties allowed
+//   // 5.repeat
+//   // for the code I'm changing this to start high and work my way down
+//   let newArr = [];
+//   while (uniqueNumbers > 0) {
+//     let max = -Infinity;
+//     // find highest number
+//     for (let i = 0; i < arr.length; i++) {
+//       if (arr[i] > max) {
+//         max = arr[i];
+//       }
+//     }
+//     console.log("max:", max, "uniqueNumbers:", uniqueNumbers);
+//     // loop to find all numbers === max
+//     for (let i = 0; i < arr.length; i++) {
+//       if (arr[i] === max) {
+//         // remove the number
+//         arr[i] = null;
+//         // set current index to the current uniqueNumbers in newArr
+//         newArr[i] = uniqueNumbers;
+//       }
+//     }
+
+//     // decrement uniqueNumbers
+//     uniqueNumbers--;
+//   }
+
+//   return newArr;
+// }
