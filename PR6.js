@@ -106,52 +106,41 @@ function simpOlympics(arr) {
 
 function simpOlympics(arr) {
   // row of sticky notes each labeled 1 -10
-  // 1. write new number on each (make them all 1 to start)
-  let newArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    newArr.push(1);
+
+  // 1. find minumum value
+  let min = Infinity;
+  for (let item of arr) {
+    if (item < min) min = item;
   }
 
-  let changesMade = true;
+  // 2. if min > 1, subtract 1 to get the difference
+  let difference = min > 1 ? min - 1 : 0;
+  // 3. subtract the answer from previous step from all numbers to remove bottom space
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i] - difference;
+    console.log(min);
+  }
+
+  let changesMade;
   while (changesMade) {
     changesMade = false;
-    // 2 look through 1 at a time
+
     for (let i = 0; i < arr.length; i++) {
-      let currentRating = arr[i];
-      let nextRating = arr[i + 1];
-      let currentBJs = newArr[i];
-      let nextBJs = newArr[i + 1];
-
-      for (let i = 0; i < arr.length; i++) {
-        let currentRating = arr[i];
-        let nextRating = arr[i + 1];
-        let prevRating = arr[i - 1];
-        let currentBJs = newArr[i];
-        let nextBJs = newArr[i + 1];
-        let prevBJs = newArr[i - 1];
-
-        // 3. if next rating is lower than current rating, increase current num by 1
-        if (currentRating > nextRating && currentBJs <= nextBJs) {
-          newArr[i]++;
-          changesMade = true;
-          // 4. if prev is lower, increase by 1
-        } else if (prevRating < currentRating && currentBJs <= prevBJs) {
-          newArr[i]++;
-          changesMade = true;
-        }
-      }
-      // 6. if no changes made you're done
+      let prev = arr[i - 1];
+      let current = arr[i];
+      let next = arr[i + 1];
     }
-    // 7. new number are the number of BJs for the simps
-    return newArr;
   }
+
+  return arr;
 }
 
-let rowOfSimps = [1, 5, 7, 8, 3, 4, 2, 9, 10];
-// rowOfSimps.reverse();
+let rowOfSimps = [10, 10, 10, 10, 1, 10];
 console.log(simpOlympics(rowOfSimps));
 
-// 5. improve solution. my current solution has a lot of looping. I loop once to find the unique numbers, then k times I: loop to find highest number and again loop to delete old numbers and assign them to the new array both n. This would be n + 2(k*n) or kn...?
+// 5. improve current solution.
+
+// 6. implemet
 
 // RECESS GAME /////////////////////////////////////////
 ////////////////////////////////////////////////////////
