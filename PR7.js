@@ -116,8 +116,6 @@ function longLines(str) {
     charsAllowed.set(letter, letter);
   }
 
-  console.log(charsAllowed.entries());
-
   // look through chars 1 at a time
   let newStr = str.toLowerCase();
   let startingIndex = 0;
@@ -147,7 +145,6 @@ function longLines(str) {
     substring = newStr.substring(startingIndex, newStr.length);
   }
 
-  console.log(longest);
   let finalString = "";
 
   for (let char of substring) {
@@ -159,6 +156,60 @@ function longLines(str) {
   return finalString;
 }
 
-let paragraph = "zzzzzzzzzzzzza /quick    br.o.w.n f";
+// 5. improve solution. current solution loops over all characters to do some constant time operations, so I think the time complexity is n. I don't think I can speed that up because I need to look at every character still. space, I store a map of the alphabet for reference and also keep a temporary storage for the letters I've seen already. The storage can be reduced, I could probably not store the alphabet and just do a check as I go along based on character codes which I'll have to look up.
 
-console.log(longLines(paragraph));
+// 6. implement
+function longLines2(str) {
+  // keep counter as you go (+1 for each char)
+  let counter = 0;
+
+  // remember/record any new chars encountered
+  let charsSeen = new Map();
+
+  // look through chars 1 at a time
+  let newStr = str.toLowerCase();
+  let startingIndex = 0;
+  let substring = "";
+  let longest = 0;
+
+  for (let i = 0; i < newStr.length; i++) {
+    // if weve seen a char already then set longest, reset count
+    if (charsSeen.has(newStr[i])) {
+      if (counter > longest) {
+        longest = counter;
+        substring = newStr.substring(startingIndex, i);
+      }
+      startingIndex = i;
+      counter = 0;
+      charsSeen.clear();
+    }
+    // add characters to seen list, increment counter
+    // got this stupid regex from the ai overlord
+    if (/^[a-z]$/i.test(newStr[i])) {
+      charsSeen.set(newStr[i], true);
+      counter++;
+    }
+  }
+
+  //   if the longest happens to go up to the end
+  if (counter > longest) {
+    substring = newStr.substring(startingIndex, newStr.length);
+  }
+
+  let finalString = "";
+
+  for (let char of substring) {
+    if (/^[a-z]$/i.test(char)) {
+      finalString += char;
+    }
+  }
+
+  return finalString;
+}
+// that slightly reduced the memory, but it's mostly the same. I don't think I cn speed it up any amount that's significant becuase I still need to loop at every character to know if it's important or not
+
+// 7. test!
+let paragraph =
+  "zz z we f   hbEWQFPIUWREFwef][[[[[[[[[[[];'zz,.z,zzza /quick    br.o.w.n f";
+
+// console.log(longLines2(paragraph));
