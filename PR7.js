@@ -75,11 +75,38 @@ function simpOlympics(ratings) {
 // 4. brute force.
 
 function simpOlympics(arr) {
-  return arr;
+  let arr2 = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr2.push([]);
+  }
+  console.log(arr2);
+  // find smallest number
+  // compare number to left and right
+  for (let i = 1; i <= 10; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j] === i) {
+        // if # < both, = 1
+        if (arr[j] < arr[j - 1] && arr[j] < arr[j + 1]) {
+          arr2[j].push(1);
+          // if > any, Math.max(num1,num2) + 1
+        } else if (arr[j] > arr[j - 1] || arr[j] > arr[j + 1]) {
+          const left = arr2[j - 1] || 0;
+          const right = arr2[j + 1] || 0;
+
+          arr2[j].push(Math.max(left, right) + 1);
+        }
+        // ignore ties
+        // find next smallest
+      }
+    }
+  }
+
+  return arr2;
 }
 
 let rowOfSimps = [10, 10, 1, 2, 3];
-// console.log(simpOlympics(rowOfSimps));
+console.log(simpOlympics(rowOfSimps));
 
 // 5. improve current solution.
 
@@ -279,4 +306,4 @@ function cheaters(arr) {
 // 7. test!
 let tests = ["a", "b", "c", "a", "a", "b", "e"];
 
-console.log(cheaters(tests));
+// console.log(cheaters(tests));
