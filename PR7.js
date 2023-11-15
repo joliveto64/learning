@@ -94,6 +94,10 @@ let rowOfSimps = [10, 10, 1, 2, 3];
 1. listen
 2. clarify. given a paragraph from a book (so a string), find the longest segment which has no duplicate characters not counting punctuation, upper/lowercase is the same
 
+example: aaaaaa > a
+example: a a a a a a > a
+example: Hello There Big Boy > lother
+
 3. function signature
 function longLines(str){
     // operations
@@ -213,3 +217,66 @@ let paragraph =
   "zz z we f   hbEWQFPIUWREFwef][[[[[[[[[[[];'zz,.z,zzza /quick    br.o.w.n f";
 
 // console.log(longLines2(paragraph));
+
+// REMOVE CHEATERS //////////////////////////////////////
+////////////////////////////////////////////////////////
+
+/*
+1. listen
+2. clarify: I am to look through a stack of tests and identify a cheater if the answers of a test are exactly the same as the answers as the test just before it. If two are the same I know instantly 
+
+example: [a,b,b,c,d] > [a,c,d]
+example: [a,a,a,a,a] > []
+example: [a,b,c,d,e] > [a,b,c,d,e]
+
+3. function signature
+function cheaters(arr){
+  // operations
+  // return array full of the cheaters
+}
+*/
+
+// 4. brute force
+function cheaters(arr) {
+  let map = new Map();
+  // 1.take first test
+  for (let i = 0; i < arr.length; i++) {
+    // 2.compare to list of versions seen already
+    if (map.has(arr[i])) {
+      // 3.if already there, throw out test
+      map.set(arr[i], map.get(arr[i]) + 1);
+    } else {
+      // 4.if not, add version to list of already seen
+      map.set(arr[i], 1);
+    }
+  }
+  // 6.repeat
+  // 7. look through arr again, if item not in map, remove
+
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (map.get(arr[i]) < 2) {
+      newArr.push(arr[i]);
+    }
+  }
+
+  console.log(map.entries());
+  return newArr;
+}
+
+// 5 improve. Time complexity of my solution is n + n because I loop through the values once to add to the map, then again to push only those which appeared once to the final array. So that's n, not bad. for space I store all the values again in a map, then also make a new array. So it's 2x input size plus the final array which worse case could be also n if they all cheated, so 3n for space. Space could probably be improved here. I could not create the last array and just modify the original, but that would come at a cost to the time requirement because splicing an array is an order n operation.
+
+// 6. implement: not much point in coppy/pasting the entire function, so here's the last part I could change to improve the space at the cost of time: (chaging lines 256 - 264)
+
+// for (let i = 0; i < arr.length; i++) {
+//   if (map.get(arr[i]) > 1) {
+//     arr.splice(i, 1);
+//     i--;
+//   }
+// }
+// return arr;
+
+// 7. test!
+let tests = ["a", "b", "c", "a", "a", "b", "e"];
+
+console.log(cheaters(tests));
