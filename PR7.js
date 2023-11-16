@@ -73,7 +73,7 @@ function simpOlympics(ratings) {
 */
 
 // 4. brute force.
-
+// white flag lol this question is crazy whatever I'm doing down there cannot be right it's too obnoxious
 function simpOlympics(arr) {
   let arr2 = [];
 
@@ -81,34 +81,74 @@ function simpOlympics(arr) {
     arr2.push([]);
   }
   console.log(arr2);
-  // find smallest number
-  // compare number to left and right
-  for (let i = 1; i <= 10; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      if (arr[j] === i) {
-        // if # < both, = 1
-        if (arr[j] < arr[j - 1] && arr[j] < arr[j + 1]) {
-          arr2[j].push(1);
-          // if > any, Math.max(num1,num2) + 1
-        } else if (arr[j] > arr[j - 1] || arr[j] > arr[j + 1]) {
-          const left = arr2[j - 1] || 0;
-          const right = arr2[j + 1] || 0;
+  let changesMade;
+  do {
+    changesMade = false;
+    // find smallest number
+    // ignore ties for now
+    for (let i = 1; i <= 10; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        // compare number to left and right
+        if (arr[j] === i && arr2[j].length === 0) {
+          // if # < both, = 1
+          if (arr[j] < arr[j - 1] && arr[j] < arr[j + 1]) {
+            arr2[j].push(1);
+            changesMade = true;
+            // if > any, Math.max(num1,num2) + 1
+          } else if (arr[j] > arr[j - 1] || arr[j] > arr[j + 1]) {
+            const left = arr2[j - 1] || 0;
+            const right = arr2[j + 1] || 0;
 
-          arr2[j].push(Math.max(left, right) + 1);
+            arr2[j].push(Math.max(left, right) + 1);
+            changesMade = true;
+          } else if (arr[j] === arr[j + 1] || arr[j] === arr[j - 1]) {
+            arr[j] = arr2[j + 1];
+          }
         }
-        // ignore ties
-        // find next smallest
       }
+      // find next smallest
     }
-  }
+  } while (changesMade);
 
   return arr2;
 }
 
-let rowOfSimps = [10, 10, 1, 2, 3];
-console.log(simpOlympics(rowOfSimps));
+function simpOlympics2(arr) {
+  let arr2 = [];
 
-// 5. improve current solution.
+  for (let i = 0; i < arr.length; i++) {
+    arr2.push(1);
+  }
+
+  let changesMade;
+  do {
+    changesMade = false;
+    for (let i = 0; i < arr.length; i++) {
+      let current = arr[i];
+      let next = arr[i + 1];
+      let prev = arr[i - 1];
+      if (current > next && arr2[i] <= arr2[i + 1]) {
+        arr2[i]++;
+        changesMade = true;
+      } else if (current > prev && arr2[i] <= arr2[i - 1]) {
+        arr2[i]++;
+        changesMade = true;
+      } else if (current === next && arr2[i] < arr2[i + 1]) {
+        arr2[i]++;
+        changesMade = true;
+      } else if (current === prev && arr2[i] < arr2[i - 1]) {
+        arr2[i]++;
+        changesMade = true;
+      }
+    }
+  } while (changesMade);
+  return arr2;
+}
+
+let rowOfSimps = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+console.log(simpOlympics2(rowOfSimps));
+
+// 5. improve current solution. I spent over a day on this stupid problem so I'll come back to this if I have time. However, my solution is probably kinda slow and not great. it has to repeatedly loop over n times until it increments a number all the way. So, I think it can get worse the higher the max number is since it can only increment 1 at a time. so if 10,9,8,7,6,5,4,3,2,1 sequencing the output will look the same, meaning it will have to loop over the whole thing 10 times. So this means I'd say the worst case time complexity is....n^k where k is the max value in the array? best case is n. I think in a better solution (which I tried to code up but couldn't) would be to take the largest sequencing (like if 3,4,5,6 = 4) so the highest number might be 4 in the final array. Then if I could increment OR decrement I could take 4/2 = 2 (round if needed) and initialize all values to that point. This would cut the number of iterations in half for any given max value I think
 
 // 6. implemet
 
