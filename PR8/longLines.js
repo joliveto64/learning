@@ -70,4 +70,4 @@ function longLines(inputArray) {
 }
 
 // need to advance starting point to first "c" instead of 2nd
-console.log(longLines(["a", "B", "c", "d", "e", "f", "c", "z", "x", "v"]));
+// console.log(longLines(["a", "B", "c", "d", "e", "f", "c", "z", "x", "v"]));
