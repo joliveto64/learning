@@ -1,5 +1,7 @@
 import { SinglyLinkedNode } from "./utils.js";
 import { SinglyLinkedList } from "./utils.js";
+import { BinaryTreeNode } from "./utils.js";
+import { BinaryTree } from "./utils.js";
 
 // MULTIPLY NUMS ///////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -25,16 +27,17 @@ function multiplyNumbers(numJ, numI) {
     for (let j = 0; j < stringJ.length; j++) {
       let numJ = Number(stringJ[j]);
       // added some variable names to make this less obnoxious
-      let remainder = (numI * numJ) % 10;
-      let product = numI * numJ;
+      let remainder = (numI * numJ + carry) % 10;
+      let product = numI * numJ + carry;
 
-      lineArr.push((product + carry) % 10);
       carry = (product - remainder) / 10;
+      lineArr.push(remainder % 10);
     }
 
     // had to add the final carry here!
     lineArr.push(carry);
     addNum(newNumArr, lineArr, i);
+    console.log(lineArr);
   }
 
   let total = 0;
@@ -48,7 +51,7 @@ function multiplyNumbers(numJ, numI) {
   }
   return total;
 }
-// console.log(multiplyNumbers("1", "1"));
+console.log(multiplyNumbers("9", "456"));
 
 // SIMP OLYMPICS ///////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -80,7 +83,6 @@ function simpOlympics(arr) {
   for (let i = 0; i < arr.length; i++) {
     arr2.push([]);
   }
-  console.log(arr2);
   let changesMade;
   do {
     changesMade = false;
@@ -146,7 +148,6 @@ function simpOlympics2(arr) {
 }
 
 let rowOfSimps = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-console.log(simpOlympics2(rowOfSimps));
 
 // 5. improve current solution. I spent over a day on this stupid problem so I'll come back to this if I have time. However, my solution is probably kinda slow and not great. it has to repeatedly loop over n times until it increments a number all the way. So, I think it can get worse the higher the max number is since it can only increment 1 at a time. so if 10,9,8,7,6,5,4,3,2,1 sequencing the output will look the same, meaning it will have to loop over the whole thing 10 times. So this means I'd say the worst case time complexity is....n^k where k is the max value in the array? best case is n. I think in a better solution (which I tried to code up but couldn't) would be to take the largest sequencing (like if 3,4,5,6 = 4) so the highest number might be 4 in the final array. Then if I could increment OR decrement I could take 4/2 = 2 (round if needed) and initialize all values to that point. This would cut the number of iterations in half for any given max value I think
 
@@ -277,7 +278,9 @@ function longLines2(str) {
 
   return finalString;
 }
-// that slightly reduced the memory, but it's mostly the same. I don't think I cn speed it up any amount that's significant becuase I still need to loop at every character to know if it's important or not
+// advance starting point when you find duplicate to fix to just after the repeat value
+
+// that slightly reduced the memory, but it's mostly the same. I don't think I cn speed it up any amount that's significant becuase I still need to loop at every character to know if it's important or not.
 
 // 7. test!
 let paragraph =
@@ -327,7 +330,6 @@ function cheaters(arr) {
     }
   }
 
-  console.log(map.entries());
   return newArr;
 }
 
@@ -347,3 +349,47 @@ function cheaters(arr) {
 let tests = ["a", "b", "c", "a", "a", "b", "e"];
 
 // console.log(cheaters(tests));
+
+// FAMILY DICKMEASURING //////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+// 1. listen
+// 2. clarify. I am given two people in a tree, so I am taking that to mean I am given two nodes of a tree. Then I am to determine the total wealth (node.value) of each of the given nodes as well as all of the nodes which directly link them.
+
+// example: y
+//         /\
+//        x  x   < include this one in total
+//       /\  /\
+//      x x y  x   < not this one
+// totaling this example I would total the value of y and the top, the next right node, then the last y together (3 nodes total)
+
+// 3. function signature
+// function familyDickMeasuring(node1, node2){
+// operations
+// return number (total)
+// }
+
+// 4. brute force
+function familyDickMeasuring(node1, node2, total = 0) {
+  if (!node1) return (total = 0);
+
+  total += node1.data;
+
+  if (node1 === node2) return total;
+
+  let left = familyDickMeasuring(node1.left, node2, total);
+  let right = familyDickMeasuring(node1.right, node2, total);
+
+  return left + right;
+}
+
+let node1 = new BinaryTreeNode(1);
+let node2 = new BinaryTreeNode(2);
+let node6 = new BinaryTreeNode(6);
+let node8 = new BinaryTreeNode(8);
+let node7 = new BinaryTreeNode(7, node6, node8);
+let node3 = new BinaryTreeNode(3, node1, node2);
+let node5 = new BinaryTreeNode(5, node3, node7);
+
+// console.log(familyDickMeasuring(node5));
+// console.log(node5.left);
