@@ -41,6 +41,10 @@ function familyTrees(ancestor, descendant, total = 0) {
 // alright this was way easier this way and the steps in my head also made sense in code. going bottom to top was 👌👌👌
 // here is the tree that's imported for testing. each node is named for its value (2,3,4,5,6,7,8)
 
+// 5. improve solution. this moves in a line, 1 at a time from descendant to ancestor while adding up the $$$ as I go. I have to visit each node to get the value, and I'm not looking at any extra nodes. The space also is good because it only stores the total. I think it's good as it is
+
+// 7. test!
+
 //        5
 //      /  \
 //     3    7
@@ -49,4 +53,7 @@ function familyTrees(ancestor, descendant, total = 0) {
 //  /          \
 // 1            9
 
-// console.log(familyTrees(familyTree.node5, familyTree.node4));
+// console.log(familyTrees(familyTree.node5, familyTree.node5));
+// console.log(familyTrees(familyTree.node3, familyTree.node4));
+// console.log(familyTrees(familyTree.node7, familyTree.node9));
+// console.log(familyTrees(familyTree.node5, familyTree.node1));
