@@ -41,10 +41,12 @@ function familyTrees(ancestor, descendant, total = 0) {
 // alright this was way easier this way and the steps in my head also made sense in code. going bottom to top was 👌👌👌
 // here is the tree that's imported for testing. each node is named for its value (2,3,4,5,6,7,8)
 
-//       5
-//     /  \
-//    3    7
-//   /\    /\
-//  2  4  6  8
+//        5
+//      /  \
+//     3    7
+//    /\    /\
+//   2  4  6  8
+//  /          \
+// 1            9
 
 // console.log(familyTrees(familyTree.node5, familyTree.node4));
