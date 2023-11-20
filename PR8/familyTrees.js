@@ -1,6 +1,4 @@
-// FAMILY DICKMEASURING //////////////////////////////////////////
-////////////////////////////////////////////////////////
-
+import { familyTree } from "../utils.js";
 // 1. listen
 // 2. clarify. I am given two people in a tree, so I am taking that to mean I am given two nodes of a tree. Then I am to determine the total wealth (node.value) of each of the given nodes as well as all of the nodes which directly link them.
 
@@ -41,40 +39,12 @@ function familyTrees(ancestor, descendant, total = 0) {
   return familyTrees(ancestor, descendant.parent, total);
 }
 // alright this was way easier this way and the steps in my head also made sense in code. going bottom to top was 👌👌👌
+// here is the tree that's imported for testing. each node is named for its value (2,3,4,5,6,7,8)
 
-class BinaryTreeNode {
-  constructor(val, parent = null, left = null, right = null) {
-    this.val = val;
-    this.parent = parent;
-    this.left = left;
-    this.right = right;
-  }
-}
+//       5
+//     /  \
+//    3    7
+//   /\    /\
+//  2  4  6  8
 
-let node2 = new BinaryTreeNode(2);
-let node3 = new BinaryTreeNode(3);
-let node4 = new BinaryTreeNode(4);
-let node5 = new BinaryTreeNode(5);
-let node6 = new BinaryTreeNode(6);
-let node7 = new BinaryTreeNode(7);
-let node8 = new BinaryTreeNode(8);
-
-node5.left = node3;
-node5.right = node7;
-
-node3.left = node2;
-node3.right = node4;
-
-node7.left = node6;
-node7.right = node8;
-
-node3.parent = node5;
-node7.parent = node5;
-
-node2.parent = node3;
-node4.parent = node3;
-
-node6.parent = node7;
-node8.parent = node7;
-
-// console.log(familyTrees(node5, node2));
+// console.log(familyTrees(familyTree.node5, familyTree.node4));

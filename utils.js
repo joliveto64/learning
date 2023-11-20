@@ -150,14 +150,6 @@ export class SinglyLinkedList {
   }
 }
 
-export class BinaryTreeNode {
-  constructor(data, left = null, right = null) {
-    this.data = data;
-    this.left = left;
-    this.right = right;
-  }
-}
-
 export class BinaryTree {
   constructor() {
     this.root = null;
@@ -188,3 +180,52 @@ export class BinaryTree {
     }
   }
 }
+
+// MIHAI LOOK HERE FOR THE BINARY TREE NODES
+
+class BinaryTreeNode {
+  constructor(val, parent = null, left = null, right = null) {
+    this.val = val;
+    this.parent = parent;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+let node2 = new BinaryTreeNode(2);
+let node3 = new BinaryTreeNode(3);
+let node4 = new BinaryTreeNode(4);
+let node5 = new BinaryTreeNode(5);
+let node6 = new BinaryTreeNode(6);
+let node7 = new BinaryTreeNode(7);
+let node8 = new BinaryTreeNode(8);
+
+node5.left = node3;
+node5.right = node7;
+
+node3.left = node2;
+node3.right = node4;
+
+node7.left = node6;
+node7.right = node8;
+
+node3.parent = node5;
+node7.parent = node5;
+
+node2.parent = node3;
+node4.parent = node3;
+
+node6.parent = node7;
+node8.parent = node7;
+
+let familyTree = {
+  node2: node2,
+  node3: node3,
+  node4: node4,
+  node5: node5,
+  node6: node6,
+  node7: node7,
+  node8: node8,
+};
+
+export { familyTree };
