@@ -238,4 +238,14 @@ let familyTree = {
   node9: node9,
 };
 
-export { familyTree };
+let familyTreeRightSide = {
+  node1: node1,
+  node2: node2,
+  node3: node3,
+  node4: node4,
+  node5: node5,
+  node6: node6,
+  node7: node7,
+};
+
+export { familyTree, familyTreeRightSide };
