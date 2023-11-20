@@ -50,4 +50,4 @@ function addNum(newNumArr, lineArr, iteration) {
   newNumArr.push(lineArr);
 }
 
-console.log(multiplyNumbers("9", "456"));
+// console.log(multiplyNumbers("9", "456"));
