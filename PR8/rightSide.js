@@ -1,4 +1,4 @@
-import { familyTreeRightSide } from "../utils.js";
+import { rightViewNode5 } from "../utils.js";
 
 // 1. listen
 // 2. clarify. This one seems conceptually very simple. Looking at a binary tree from the right side, starting at the top, make a list of the nodes you can see, assuming that the right-most nodes obscure the nodes behind them. Essentially, what is the right-most node at each level?
@@ -26,63 +26,65 @@ import { familyTreeRightSide } from "../utils.js";
 // }
 
 // 4. brute force.
-function rightSide(node, map, count = 1) {
+function rightSide(node, map, array, count = 1) {
   if (!node) return undefined;
 
   count++;
-  console.log(node.val);
+  array.push(node.val);
   map.set(count, true);
 
   if (!node.right && node.left) {
-    return rightSide(node.left, map, count);
+    return rightSide(node.left, map, array, count);
   } else {
-    return rightSide(node.right, map, count);
+    return rightSide(node.right, map, array, count);
   }
 }
 
-function leftSide(node, map, count = 1) {
+function leftSide(node, map, array, count = 1) {
   if (!node) return undefined;
 
   count++;
   if (!map.has(count)) {
-    console.log(node.val);
+    array.push(node.val);
   }
 
-  console.log(map.entries());
+  if (!map.has(count + 1) && node.right) {
+    array.push(node.right.val);
+    map.set(count + 1);
+  }
+
   if (!node.left && node.right) {
-    return leftSide(node.right, map, count);
+    return leftSide(node.right, map, array, count);
   } else {
-    return leftSide(node.left, map, count);
+    return leftSide(node.left, map, array, count);
   }
 }
 
 function rightSideView(node) {
   if (!node) return undefined;
-  let returnArray = [];
   let levelMap = new Map();
   levelMap.set(1, true);
   // print root val
-  console.log(node.val);
-  // keep counter to track levels
-  let counter = 1;
+  let valuesToReturn = [node.val];
   // print all right values, but left if the last is left
-  rightSide(node.right, levelMap);
+  rightSide(node.right, levelMap, valuesToReturn);
   // print all left values, but right is the lasft is right
-  leftSide(node.left, levelMap);
+  // skip values for levels already done
+  leftSide(node.left, levelMap, valuesToReturn);
+
+  return valuesToReturn;
 }
 
-// function rightSideView2(node) {
-//   if (!node) return null;
+// test tree:
+//           5
+//         /  \
+//        3    7
+//       /\    /
+//      2  4  6
+//     /
+//    1
+//   /\
+// .5  1.5
 
-//   console.log(node.val);
-
-//   while (node) {
-//     console.log(node.val);
-//     if (!node.right && node.left) {
-//       node = node.left;
-//     } else {
-//       node = node.right;
-//     }
-//   }
-// }
-rightSideView(familyTreeRightSide.rightTreeNode5);
+console.log(rightSideView(rightViewNode5));
+// prints [5, 7, 6, 1, 1.5]

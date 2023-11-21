@@ -238,45 +238,53 @@ let familyTree = {
   node9: node9,
 };
 
-let rightTreeNode1 = new BinaryTreeNode(1);
-let rightTreeNode2 = new BinaryTreeNode(2);
-let rightTreeNode3 = new BinaryTreeNode(3);
-let rightTreeNode4 = new BinaryTreeNode(4);
-let rightTreeNode5 = new BinaryTreeNode(5);
-let rightTreeNode6 = new BinaryTreeNode(6);
-let rightTreeNode7 = new BinaryTreeNode(7);
+let rightViewNodePoint5 = new BinaryTreeNode(0.5);
+let rightViewNode1 = new BinaryTreeNode(1);
+let rightViewNode15 = new BinaryTreeNode(1.5);
+let rightViewNode2 = new BinaryTreeNode(2);
+let rightViewNode3 = new BinaryTreeNode(3);
+let rightViewNode4 = new BinaryTreeNode(4);
+let rightViewNode5 = new BinaryTreeNode(5);
+let rightViewNode6 = new BinaryTreeNode(6);
+let rightViewNode7 = new BinaryTreeNode(7);
 
-let familyTreeRightSide = {
-  rightTreeNode1: rightTreeNode1,
-  rightTreeNode2: rightTreeNode2,
-  rightTreeNode3: rightTreeNode3,
-  rightTreeNode3: rightTreeNode4,
-  rightTreeNode5: rightTreeNode5,
-  rightTreeNode6: rightTreeNode6,
-  rightTreeNode7: rightTreeNode7,
-};
+rightViewNode5.left = rightViewNode3;
+rightViewNode5.right = rightViewNode7;
 
-rightTreeNode5.left = rightTreeNode3;
-rightTreeNode5.right = rightTreeNode7;
+rightViewNode3.left = rightViewNode2;
+rightViewNode3.right = rightViewNode4;
 
-rightTreeNode3.left = rightTreeNode2;
-rightTreeNode3.right = rightTreeNode4;
+rightViewNode7.left = rightViewNode6;
 
-rightTreeNode7.left = rightTreeNode6;
+rightViewNode2.left = rightViewNode1;
 
-rightTreeNode2.left = rightTreeNode1;
+rightViewNode1.right = rightViewNode15;
+rightViewNode1.left = rightViewNodePoint5;
 
-rightTreeNode3.parent = rightTreeNode5;
-rightTreeNode7.parent = rightTreeNode5;
+rightViewNode3.parent = rightViewNode5;
+rightViewNode7.parent = rightViewNode5;
 
-rightTreeNode2.parent = rightTreeNode3;
-rightTreeNode4.parent = rightTreeNode3;
+rightViewNode2.parent = rightViewNode3;
+rightViewNode4.parent = rightViewNode3;
 
-rightTreeNode6.parent = rightTreeNode7;
+rightViewNode6.parent = rightViewNode7;
 
-rightTreeNode1.parent = rightTreeNode2;
+rightViewNode1.parent = rightViewNode2;
 
-export { familyTree, familyTreeRightSide };
+rightViewNode15.parent = rightViewNode1;
+rightViewNodePoint5.parent = rightViewNode1;
+
+//           5
+//         /  \
+//        3    7
+//       /\    /
+//      2  4  6
+//     /
+//    1
+//   /\
+// .5  1.5
+
+export { familyTree, rightViewNode5 };
 
 /*
 NOTES
