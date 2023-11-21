@@ -238,14 +238,55 @@ let familyTree = {
   node9: node9,
 };
 
+let rightTreeNode1 = new BinaryTreeNode(1);
+let rightTreeNode2 = new BinaryTreeNode(2);
+let rightTreeNode3 = new BinaryTreeNode(3);
+let rightTreeNode4 = new BinaryTreeNode(4);
+let rightTreeNode5 = new BinaryTreeNode(5);
+let rightTreeNode6 = new BinaryTreeNode(6);
+let rightTreeNode7 = new BinaryTreeNode(7);
+
 let familyTreeRightSide = {
-  node1: node1,
-  node2: node2,
-  node3: node3,
-  node4: node4,
-  node5: node5,
-  node6: node6,
-  node7: node7,
+  rightTreeNode1: rightTreeNode1,
+  rightTreeNode2: rightTreeNode2,
+  rightTreeNode3: rightTreeNode3,
+  rightTreeNode3: rightTreeNode4,
+  rightTreeNode5: rightTreeNode5,
+  rightTreeNode6: rightTreeNode6,
+  rightTreeNode7: rightTreeNode7,
 };
 
+rightTreeNode5.left = rightTreeNode3;
+rightTreeNode5.right = rightTreeNode7;
+
+rightTreeNode3.left = rightTreeNode2;
+rightTreeNode3.right = rightTreeNode4;
+
+rightTreeNode7.left = rightTreeNode6;
+
+rightTreeNode2.left = rightTreeNode1;
+
+rightTreeNode3.parent = rightTreeNode5;
+rightTreeNode7.parent = rightTreeNode5;
+
+rightTreeNode2.parent = rightTreeNode3;
+rightTreeNode4.parent = rightTreeNode3;
+
+rightTreeNode6.parent = rightTreeNode7;
+
+rightTreeNode1.parent = rightTreeNode2;
+
 export { familyTree, familyTreeRightSide };
+
+/*
+NOTES
+- tip: i wouldn't have let you use it, but I'd like to have seen you suggest to use the native js string function (str.inddexOf(subStr). Even if you don't remember the exact name of the function, you can just say "well I can just use the built in str function to do this, idr the exact name but yeah I know it's there". I'd say "yeah that's nice but lets make our own", but in my mind I'd give you some points on the rubric for "familiarity w/ js" (this doesn't always apply but for something more common like string manipulation it's not an unreasonable expectation)
+- tip: when given 2 strings or arrays or something, try to not name them 1 and 2. Either name them strI and strJ so it matches your indices OR give them more descriptive name: str and subStr or soemthing
+- tip: try to keep your indents clean while editing code, it's easier for both of us to read
+- gave initial solution via comments, good
+- skipped talking about time complexity and thinking about better solutions
+  - doing that pre-coding could help you skip implementing a subpar approach if you can think of a better one right away
+  - also gives you a quick chance to show off time complexity / critical thinking early
+- my hint of "can this even work if we finish the 11st run of the inside loop?" was a critical moment — it's easy to get lost in 1 impl and miss a silly ting like "oh we don't even need any of this", so I wouldn't ding you too bad for getting that 1st hint, but not getting it after that hint is def points off
+
+*/

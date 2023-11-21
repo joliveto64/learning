@@ -34,7 +34,7 @@ function longLines(inputArray) {
 
   // 1. look through 1 at a time
   for (let i = startingIndex; i < inputArray.length; i++) {
-    console.log(inputArray[i], count);
+    // console.log(inputArray[i], count);
     let current = inputArray[i];
     // 3. if you see a letter you've seen before, if your count is bigger than it was before, the longest unique segment is from the starting point to 1 before the current letter.
     if (
@@ -65,7 +65,7 @@ function longLines(inputArray) {
     longestSegment = inputArray.slice(startingIndex, inputArray.length);
   }
 
-  console.log(count, highestCount);
+  // console.log(count, highestCount);
   return longestSegment;
 }
 

@@ -13,8 +13,8 @@ function multiplyNumbers(numJ, numI) {
     for (let j = 0; j < stringJ.length; j++) {
       let numJ = Number(stringJ[j]);
       // added some variable names to make this less obnoxious
-      let remainder = (numI * numJ + carry) % 10;
       let total = numI * numJ + carry;
+      let remainder = total % 10;
 
       carry = (total - remainder) / 10;
       lineArr.push(remainder);

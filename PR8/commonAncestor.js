@@ -50,8 +50,8 @@ function youngestAncestor(node1, node2) {
     nodesSeen.set(node1, node1.val);
     nodesSeen.set(node2, node2.val);
     // -----if no, look to each parent
-    if (node1.parent) node1 = node1.parent;
-    if (node2.parent) node2 = node2.parent;
+    node1 = node1.parent;
+    node2 = node2.parent;
   }
 }
 
@@ -123,14 +123,14 @@ function calcNodeDepth(node) {
 //  /          \
 // 1            9
 
-console.log(youngestAncestor(familyTree.node1, familyTree.node4));
-console.log(youngestAncestor(familyTree.node1, familyTree.node9));
-console.log(youngestAncestor(familyTree.node1, familyTree.node2));
-console.log(youngestAncestor(familyTree.node7, familyTree.node7));
-console.log(youngestAncestor(familyTree.node5, familyTree.node5));
-console.log("~~~~~~~~");
-console.log(youngestAncestor2(familyTree.node1, familyTree.node4));
-console.log(youngestAncestor2(familyTree.node1, familyTree.node9));
-console.log(youngestAncestor2(familyTree.node1, familyTree.node2));
-console.log(youngestAncestor2(familyTree.node7, familyTree.node7));
-console.log(youngestAncestor(familyTree.node5, familyTree.node5));
+// console.log(youngestAncestor(familyTree.node1, familyTree.node4));
+// console.log(youngestAncestor(familyTree.node1, familyTree.node9));
+// console.log(youngestAncestor(familyTree.node1, familyTree.node2));
+// console.log(youngestAncestor(familyTree.node7, familyTree.node7));
+// console.log(youngestAncestor(familyTree.node5, familyTree.node5));
+// console.log("~~~~~~~~");
+// console.log(youngestAncestor2(familyTree.node1, familyTree.node4));
+// console.log(youngestAncestor2(familyTree.node1, familyTree.node9));
+// console.log(youngestAncestor2(familyTree.node1, familyTree.node2));
+// console.log(youngestAncestor2(familyTree.node7, familyTree.node7));
+// console.log(youngestAncestor(familyTree.node5, familyTree.node5));
