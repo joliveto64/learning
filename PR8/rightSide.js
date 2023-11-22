@@ -26,65 +26,56 @@ import { rightViewNode5 } from "../utils.js";
 // }
 
 // 4. brute force.
-function rightSide(node, map, array, count = 1) {
-  if (!node) return undefined;
+// EXPLANATION: main function and two helper functions. I'm traversing the right side, then the left side and pushing right-most values into an array. I keep track of which levels of the tree I pushed values from already while traversing the right (with a map and counter), then when I do the left I only push a value if that level is not present in the map.
 
-  count++;
-  array.push(node.val);
-  map.set(count, true);
-
-  if (!node.right && node.left) {
-    return rightSide(node.left, map, array, count);
-  } else {
-    return rightSide(node.right, map, array, count);
-  }
-}
-
-function leftSide(node, map, array, count = 1) {
-  if (!node) return undefined;
+let valuesMap = new Map();
+function rightSideView(node, map, count = 0) {
+  if (!node) return;
 
   count++;
   if (!map.has(count)) {
-    array.push(node.val);
+    map.set(count, node.val);
   }
 
-  if (!map.has(count + 1) && node.right) {
-    array.push(node.right.val);
-    map.set(count + 1);
-  }
+  rightSideView(node.right, map, count);
+  rightSideView(node.left, map, count);
 
-  if (!node.left && node.right) {
-    return leftSide(node.right, map, array, count);
-  } else {
-    return leftSide(node.left, map, array, count);
-  }
+  return valuesMap.values();
 }
 
-function rightSideView(node) {
-  if (!node) return undefined;
-  let levelMap = new Map();
-  levelMap.set(1, true);
-  // print root val
-  let valuesToReturn = [node.val];
-  // print all right values, but left if the last is left
-  rightSide(node.right, levelMap, valuesToReturn);
-  // print all left values, but right is the lasft is right
-  // skip values for levels already done
-  leftSide(node.left, levelMap, valuesToReturn);
+// 5. improve solution. I had a couple previous versions that didn't work. This function was already mush worse, but I realized some things that were stupid before I finished it...so it's slightly refined already. Anyway, using the map and incrementing the counter are both O(n). Traversing all nodes is O(n). So, this function is O(n) plus map.values() is O(k) where k is the length of the map. The length of the map is the number of right-most values, so the height of the tree which varies depending on the type of tree. So overall the time complexity should be O(n + k), or O(n). Space is length of the map plus the input size. I don't think this can be done without seeing every node, but I'm not 100% sure of that. I can push items to an array and return the array to prevent the O(n) operation of map.values() which would slighly speed it up at the cost of some additional space.
 
-  return valuesToReturn;
+// 6. implement improvement
+let levelMap2 = new Map();
+let rightValuesArray = [];
+function rightSideView2(node, map, count = 0) {
+  if (!node) return;
+
+  count++;
+  if (!map.has(count)) {
+    map.set(count, node.val);
+    rightValuesArray.push(node.val);
+  }
+
+  rightSideView(node.right, map, count);
+  rightSideView(node.left, map, count);
+
+  return rightValuesArray;
 }
+// this only returns the first value, not sure why yet
+
+// 7. test!
 
 // test tree:
 //           5
 //         /  \
 //        3    7
 //       /\    /
-//      2  4  6
-//     /
-//    1
-//   /\
-// .5  1.5
+//     2  4   6
+//    /    \
+//   1    4.5
+//  /\
+//.5  1.5
 
-console.log(rightSideView(rightViewNode5));
-// prints [5, 7, 6, 1, 1.5]
+console.log(rightSideView(rightViewNode5, valuesMap));
+console.log(rightSideView2(rightViewNode5, levelMap2));

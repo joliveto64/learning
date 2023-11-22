@@ -244,6 +244,7 @@ let rightViewNode15 = new BinaryTreeNode(1.5);
 let rightViewNode2 = new BinaryTreeNode(2);
 let rightViewNode3 = new BinaryTreeNode(3);
 let rightViewNode4 = new BinaryTreeNode(4);
+let rightViewNode45 = new BinaryTreeNode(4.5);
 let rightViewNode5 = new BinaryTreeNode(5);
 let rightViewNode6 = new BinaryTreeNode(6);
 let rightViewNode7 = new BinaryTreeNode(7);
@@ -254,25 +255,14 @@ rightViewNode5.right = rightViewNode7;
 rightViewNode3.left = rightViewNode2;
 rightViewNode3.right = rightViewNode4;
 
+rightViewNode4.right = rightViewNode45;
+
 rightViewNode7.left = rightViewNode6;
 
 rightViewNode2.left = rightViewNode1;
 
 rightViewNode1.right = rightViewNode15;
 rightViewNode1.left = rightViewNodePoint5;
-
-rightViewNode3.parent = rightViewNode5;
-rightViewNode7.parent = rightViewNode5;
-
-rightViewNode2.parent = rightViewNode3;
-rightViewNode4.parent = rightViewNode3;
-
-rightViewNode6.parent = rightViewNode7;
-
-rightViewNode1.parent = rightViewNode2;
-
-rightViewNode15.parent = rightViewNode1;
-rightViewNodePoint5.parent = rightViewNode1;
 
 //           5
 //         /  \
