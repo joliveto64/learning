@@ -27,7 +27,6 @@ class BinaryTree {
       }
     }
 
-    // changed > to >= per your comment
     if (data > node.data) {
       if (!node.right) {
         node.right = newNode;
