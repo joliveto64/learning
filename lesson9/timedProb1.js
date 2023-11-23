@@ -38,6 +38,9 @@ var romanToInt = function (s) {
   return total;
 };
 
-console.log(romanToInt("MCMXCIV"));
+// 7. test!
+// console.log(romanToInt("III"));
+// console.log(romanToInt("LVIII"));
+// console.log(romanToInt("MCMXCIV"));
 
 // I forgot to do step 3, did not have time improve solution, I went over the 45min timer by less than 1min on this one after making some dumb mistakes and changing stuff. My mistake again was rushing the steps to get to code faster. Will spend more time on steps in next one for sure.
