@@ -77,5 +77,5 @@ function rightSideView2(node, map, count = 0) {
 //  /\
 //.5  1.5
 
-console.log(rightSideView(rightViewNode5, valuesMap));
-console.log(rightSideView2(rightViewNode5, levelMap2));
+// console.log(rightSideView(rightViewNode5, valuesMap));
+// console.log(rightSideView2(rightViewNode5, levelMap2));
