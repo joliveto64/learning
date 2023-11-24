@@ -95,7 +95,7 @@ function productExceptSelf3(inputArray) {
   return productArray;
 }
 
-console.log(productExceptSelf3([1, 2, 3, 4]));
-console.log(productExceptSelf3([-1, 1, 0, -3, 3]));
+// console.log(productExceptSelf3([1, 2, 3, 4]));
+// console.log(productExceptSelf3([-1, 1, 0, -3, 3]));
 
 // okay this ended up being more dumb than I thought whatever I got it
