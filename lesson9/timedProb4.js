@@ -46,16 +46,28 @@ function needleInHaystack(haystack, needle) {
 function needleInHaystack2(haystack, needle) {
   let counter = 0;
   let j = 0;
+  let repeat = false;
+  let skippedIndex;
   // look through haystack
   for (let i = 0; i < haystack.length; i++) {
     // compare each letter to first letter in needle
     if (haystack[i] === needle[j]) {
+      if (haystack[i] === needle[0]) {
+        repeat = true;
+        skippedIndex = i;
+      }
       // if first letter matches, remember index
       // start counter/inc by 1
       counter++;
       j++;
       // if mismatch before counter === needle length, reset index to -1 and counter to 0
     } else {
+      if (repeat) {
+        i = skippedIndex - 1;
+        counter = 0;
+        j = 0;
+        repeat = false;
+      }
       counter = 0;
       j = 0;
     }
@@ -67,7 +79,7 @@ function needleInHaystack2(haystack, needle) {
 }
 
 // 7. test!
-console.log(needleInHaystack2("sadbutsad", "sad"));
-console.log(needleInHaystack2("leetcode", "leeto"));
+// console.log(needleInHaystack2("sadbutsad", "sad"));
+// console.log(needleInHaystack2("mississippi", "issip"));
 
-// 19min left
+// 19min left. went and checked in leetcode and there were problems, passed the initial cases but fails some later ones. "mississippi" and "issip" failed. Updated the problem and now it gets the right answer, 6min left on the clock. Still fails leetcode though it says time limit exceeded, not sure what to do about that. Okay talked to chat GPT and is said my solution is just slow, so I'll try to fix it. Past the timer now. Leetcode is kinda dumb, like sure the solution is bad but just saying failed it retarded. At least let me know if it technically works but is also bad, saying fail without feedback is lame. Elitist whores!
