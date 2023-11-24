@@ -274,7 +274,13 @@ rightViewNode1.left = rightViewNodePoint5;
 //   /\
 // .5  1.5
 
-export { familyTree, rightViewNode5 };
+export {
+  familyTree,
+  rightViewNode5,
+  rightViewNode1,
+  rightViewNode2,
+  rightViewNode15,
+};
 
 /*
 NOTES
