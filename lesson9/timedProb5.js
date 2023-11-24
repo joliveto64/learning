@@ -39,8 +39,7 @@ function productExceptSelf(inputArray) {
 
 // at 23min left. little big where it's printing out -0, otherwise looks good for naive solution. Just randomly remembered math.abs.
 
-// 5. improve solution. This loops a bunch of times, so I know it's slow (it's n^2). Initial thought to improve is to use a map, but not sure how if that's correct just yet. Can't think of anything with the map, but I think I can find the product by looping once, then fill a new array with the product n times, looping though it and dividing each product by inputArray[i].
-
+// 5. improve solution. This loops a bunch of times, so I know it's slow (it's n^2). Initial thought to improve is to use a map, but not sure how if that's correct just yet. Can't think of anything with the map, but I think I can find the product by looping once, then loop though it again and push the product divided by inputArray[i]
 function productExceptSelf2(inputArray) {
   let product = 1;
   let productArray = [];
@@ -57,7 +56,46 @@ function productExceptSelf2(inputArray) {
 }
 
 // 7. test!
-console.log(productExceptSelf([1, 2, 3, 4]));
-console.log(productExceptSelf([-1, 1, 0, -3, 3]));
+// console.log(productExceptSelf2([1, 2, 3, 4]));
+// console.log(productExceptSelf2([-1, 1, 0, -3, 3]));
 
-// okay cool that looks like it works. Definitely faster, have 8mins left right now. Now it's n + n which simplifies to n for time complexity! sheeesh
+// okay cool that looks like it works. Definitely faster, have 8mins left right now. Now it's n + n which simplifies to n for time complexity! Oops it doesn't work...lol I'm past time now but gonna try to fix it, I think I have the right general idea. Oh man these 0s are so annoying to deal with in this case
+
+function productExceptSelf3(inputArray) {
+  let product = 1;
+  let productArray = [];
+  let numZeros = 0;
+
+  for (let i = 0; i < inputArray.length; i++) {
+    if (inputArray[i] !== 0) {
+      product *= inputArray[i];
+    } else {
+      numZeros++;
+    }
+  }
+
+  for (let i = 0; i < inputArray.length; i++) {
+    if (numZeros === 0) {
+      productArray.push(product / inputArray[i]);
+    }
+
+    if (inputArray[i] === 0 && numZeros === 1) {
+      productArray.push(product);
+    }
+
+    if (inputArray[i] !== 0 && numZeros === 1) {
+      productArray.push(0);
+    }
+
+    if (numZeros > 1) {
+      productArray.push(0);
+    }
+  }
+
+  return productArray;
+}
+
+console.log(productExceptSelf3([1, 2, 3, 4]));
+console.log(productExceptSelf3([-1, 1, 0, -3, 3]));
+
+// okay this ended up being more dumb than I thought whatever I got it
