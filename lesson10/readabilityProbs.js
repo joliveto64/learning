@@ -1,3 +1,5 @@
+// This isn't ALL old problems, but a pretty good list of the ones I thought needed changes
+
 // PR8
 function multiplyNumbers(numJ, numI) {
   let stringJ = numJ.split("").reverse();
