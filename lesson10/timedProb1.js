@@ -10,28 +10,17 @@
 // }
 
 // 4. brute force.
-// This is an infinite loop don't run it.
 function gasStations(gasArr, costArr) {
   for (let i = 0; i < gasArr.length; i++) {
     let count = 0;
     let gasTank = 0;
-
-    console.log(
-      "OUTTER********************",
-      "count:",
-      count,
-      "tank:",
-      gasTank,
-      "i:",
-      i
-    );
+    let index = i;
 
     while (true) {
-      let index = i;
       if (count === gasArr.length) return index;
       gasTank += gasArr[index] - costArr[index];
 
-      if (gasTank >= 1) {
+      if (gasTank >= 0) {
         index++;
         count++;
         if (index >= gasArr.length) {
@@ -40,16 +29,6 @@ function gasStations(gasArr, costArr) {
       } else {
         break;
       }
-      console.log(
-        "**********INNER************",
-
-        "count:",
-        count,
-        "tank:",
-        gasTank,
-        "index:",
-        index
-      );
     }
   }
   return -1;

@@ -71,7 +71,7 @@ function hasPath(graph, source, destination) {
   return false;
 }
 
-console.log(hasPath(graph2, "f", "k"));
+// console.log(hasPath(graph2, "f", "k"));
 
 // path finder without recursion, breadth first
 function hasPath2(graph, source, destination) {
@@ -88,4 +88,4 @@ function hasPath2(graph, source, destination) {
   return false;
 }
 
-console.log(hasPath2(graph2, "f", "k"));
+// console.log(hasPath2(graph2, "f", "k"));
