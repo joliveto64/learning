@@ -36,8 +36,8 @@ function longestCommonPrefix(array) {
   return longest;
 }
 
-console.log(longestCommonPrefix(["flower", "flow", "flight"]));
-console.log(longestCommonPrefix(["dog", "racecar", "car"]));
+// console.log(longestCommonPrefix(["flower", "flow", "flight"]));
+// console.log(longestCommonPrefix(["dog", "racecar", "car"]));
 
 // Okay I'm just under an hour right now, ran into a couple issues I couldn't figure out. I didn't understand the console errors. Maybe could have been different if a person was here to give a hint. Wouldn't have been using the console anyway! Ran into an issue trying to use splice on a string which I can't do. Oops.
 
@@ -78,7 +78,7 @@ function longestCommonPrefix2(array) {
 }
 
 // 7. test!
-console.log(longestCommonPrefix2(["flower", "flow", "flight"]));
-console.log(longestCommonPrefix2(["dog", "racecar", "car"]));
+// console.log(longestCommonPrefix2(["flower", "flow", "flight"]));
+// console.log(longestCommonPrefix2(["dog", "racecar", "car"]));
 
 // all together took 1.5hr. Final solution is faster because I break out of the inner loop if I hit a non-match. Also saves on space because storing numbers should be less space than strings, potentially.

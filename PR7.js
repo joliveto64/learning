@@ -135,12 +135,6 @@ function simpOlympics2(arr) {
       } else if (current > prev && arr2[i] <= arr2[i - 1]) {
         arr2[i]++;
         changesMade = true;
-      } else if (current === next && arr2[i] < arr2[i + 1]) {
-        arr2[i]++;
-        changesMade = true;
-      } else if (current === prev && arr2[i] < arr2[i - 1]) {
-        arr2[i]++;
-        changesMade = true;
       }
     }
   } while (changesMade);

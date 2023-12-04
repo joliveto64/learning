@@ -53,6 +53,7 @@ function lengthLastWord2(string) {
       return counter;
     }
   }
+  return counter;
 }
 
 // test!
