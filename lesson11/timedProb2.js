@@ -119,13 +119,15 @@ function chatGptIsALittleBitch(height) {
   return trappedWater;
 }
 
-console.log("should be: 6");
-console.log(chatGptIsALittleBitch([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]));
-console.log("should be: 9");
-console.log(chatGptIsALittleBitch([4, 2, 0, 3, 2, 5]));
-console.log("should be: 1");
-console.log(chatGptIsALittleBitch([4, 2, 3]));
-console.log("should be: 1");
-console.log(chatGptIsALittleBitch([4, 9, 4, 5, 3, 2]));
-console.log("should be: 3");
-console.log(chatGptIsALittleBitch([9, 6, 8, 8, 5, 6, 3]));
+// console.log("should be: 6");
+// console.log(chatGptIsALittleBitch([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]));
+// console.log("should be: 9");
+// console.log(chatGptIsALittleBitch([4, 2, 0, 3, 2, 5]));
+// console.log("should be: 1");
+// console.log(chatGptIsALittleBitch([4, 2, 3]));
+// console.log("should be: 1");
+// console.log(chatGptIsALittleBitch([4, 9, 4, 5, 3, 2]));
+// console.log("should be: 3");
+// console.log(chatGptIsALittleBitch([9, 6, 8, 8, 5, 6, 3]));
+
+// time complexity is n since it looks at everything (half from left and half from right), space is constant plus the input

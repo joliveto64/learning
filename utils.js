@@ -269,8 +269,8 @@ rightViewNode1.left = rightViewNodePoint5;
 //        3    7
 //       /\    /
 //      2  4  6
-//     /
-//    1
+//     /   \
+//    1    4.5
 //   /\
 // .5  1.5
 
