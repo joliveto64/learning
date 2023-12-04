@@ -77,7 +77,7 @@ function reverseWords2(inputString) {
 // console.log(reverseWords("hello  world"));
 // console.log(reverseWords("a good   example"));
 
-console.log(reverseWords2("the sky is blue"));
-console.log(reverseWords2(" hello  world "));
-console.log(reverseWords2("a good   example"));
-console.log(reverseWords2("apples"));
+// console.log(reverseWords2("the sky is blue"));
+// console.log(reverseWords2(" hello  world "));
+// console.log(reverseWords2("a good   example"));
+// console.log(reverseWords2("apples"));
