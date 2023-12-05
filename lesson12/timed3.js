@@ -37,8 +37,8 @@ function maxWater(heightArray) {
   return maxWater;
 }
 
-console.log(maxWater([1, 8, 6, 2, 5, 4, 8, 3, 7]));
-console.log(maxWater([1, 1]));
+// console.log(maxWater([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+// console.log(maxWater([1, 1]));
 
 // Beat all test cases on leet! About 29mins left! Good thing we talked about that stpud water problem before! sheeeesh
 
