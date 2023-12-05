@@ -57,19 +57,33 @@ function isAnagram2(string, target) {
   for (let i = 0; i < string.length; i++) {
     if (!map.has(string[i])) {
       map.set(string[i], ["str", 1]);
-    } else if (map.has(string[i]) && map.get(string[i])[0] !== "str") {
-      map.set(string[i], [map.get(string[i])[0], map.get(string[i])[1] - 1]);
+    } else {
+      if (map.get(string[i])[0] === "str") {
+        map.set(string[i], [map.get(string[i])[0], map.get(string[i])[1] + 1]);
+      } else {
+        map.set(string[i], [map.get(string[i])[0], map.get(string[i])[1] - 1]);
+      }
 
-      map.get(string[i])[1] < 1 ? map.delete(string[i]) : null;
+      if (map.get(string[i])[1] < 1) {
+        map.delete(string[i]);
+      }
     }
 
     if (!map.has(target[i])) {
       map.set(target[i], ["tar", 1]);
-    } else if (map.has(target[i]) && map.get(target[i])[0] !== "tar") {
-      map.set(target[i], [map.get(target[i])[0], map.get(target[i])[1] - 1]);
+    } else {
+      if (map.get(target[i])[0] === "tar") {
+        map.set(target[i], [map.get(target[i])[0], map.get(target[i])[1] + 1]);
+      } else {
+        map.set(target[i], [map.get(target[i])[0], map.get(target[i])[1] - 1]);
+      }
 
-      map.get(target[i])[1] < 1 ? map.delete(target[i]) : null;
+      if (map.get(target[i])[1] < 1) {
+        map.delete(target[i]);
+      }
     }
+
+    // console.log(map.entries());
   }
 
   if (map.size > 0) {
@@ -78,6 +92,8 @@ function isAnagram2(string, target) {
     return true;
   }
 }
+
+// well that was a nightmare. But, it works and passes all tests and only loops once now. Intersetingly, it's slower that the one that loops twice....and uses more memory! So, not an optimization at all lol. This is something we should chat about, on paper it's O(n) instead of O(2n), although I get they both reduce to n.
 
 // 7. test
 console.log(isAnagram2("anagram", "nagaram"));
