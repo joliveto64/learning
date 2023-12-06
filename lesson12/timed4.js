@@ -96,8 +96,8 @@ function isAnagram2(string, target) {
 // well that was a nightmare. But, it works and passes all tests and only loops once now. Intersetingly, it's slower that the one that loops twice....and uses more memory! So, not an optimization at all lol. This is something we should chat about, on paper it's O(n) instead of O(2n), although I get they both reduce to n.
 
 // 7. test
-console.log(isAnagram2("anagram", "nagaram"));
-console.log(isAnagram2("rat", "car"));
-console.log(isAnagram2("ab", "a"));
-console.log(isAnagram2("aacc", "ccac"));
-console.log(isAnagram2("aa", "bb"));
+// console.log(isAnagram2("anagram", "nagaram"));
+// console.log(isAnagram2("rat", "car"));
+// console.log(isAnagram2("ab", "a"));
+// console.log(isAnagram2("aacc", "ccac"));
+// console.log(isAnagram2("aa", "bb"));
