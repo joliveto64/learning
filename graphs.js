@@ -26,8 +26,6 @@ function depthFirstGraph(graph, source) {
   }
 }
 
-// depthFirstGraph(graph, "a");
-
 function depthFirstGraphRecursion(graph, source) {
   console.log(source);
 
@@ -36,6 +34,8 @@ function depthFirstGraphRecursion(graph, source) {
   }
 }
 
+// depthFirstGraph(graph, "a");
+// console.log("*****");
 // depthFirstGraphRecursion(graph, "a");
 
 // BREADTH FIRST TRAVERSALS
@@ -53,6 +53,7 @@ function breadthFirstPrint(graph, source) {
   }
 }
 
+// console.log("*****");
 // breadthFirstPrint(graph, "a");
 
 const graph2 = {
@@ -123,7 +124,6 @@ function convertToGraph(edges) {
 
 function hasPath3(graph, src, dst, visited = new Set()) {
   if (src === dst) return true;
-  if (visited.has(src)) return false;
   visited.add(src);
 
   for (let neighbor of graph[src]) {
@@ -210,7 +210,7 @@ function largestComponent(graph) {
   let longest = 0;
   let visited = new Set();
 
-  for (let node in sizeGraph) {
+  for (let node in graph) {
     let size = exploreSize(graph, node, visited);
 
     if (size > longest) longest = size;

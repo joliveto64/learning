@@ -37,6 +37,6 @@ function threeSum(nums) {
   return triplets;
 }
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+// console.log(threeSum([-1, 0, 1, 2, -1, -4]));
 
 // Okay I failed this one. was way off I think. Eventually figured it out with some hints from chatGPT. I was tying to do it without nesting 3 loops because that's obviously bad, but I just couldn't get it
