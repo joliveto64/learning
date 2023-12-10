@@ -255,8 +255,8 @@ function shortestPath(graph, src, dst) {
 let grid = [
   ["l", "l", "w", "l"],
   ["l", "l", "w", "l"],
-  ["w", "l", "l", "w"],
-  ["l", "l", "w", "w"],
+  ["w", "w", "w", "l"],
+  ["l", "w", "w", "l"],
   ["l", "w", "l", "l"],
 ];
 
@@ -312,8 +312,8 @@ function smallestIsland(grid) {
 function findSize(grid, r, c, visited) {
   const rowExists = r >= 0 && r < grid.length;
   const colExists = c >= 0 && c < grid[0].length;
-
   if (!rowExists || !colExists) return 0;
+
   if (grid[r][c] === "w") return 0;
 
   const position = r + "," + c;
@@ -324,9 +324,9 @@ function findSize(grid, r, c, visited) {
   count += exploreIsland(grid, r - 1, c, visited);
   count += exploreIsland(grid, r + 1, c, visited);
   count += exploreIsland(grid, r, c - 1, visited);
-  count += (grid, r, c + 1, visited, count);
+  count += exploreIsland(grid, r, c + 1, visited);
 
   return count;
 }
 
-console.log(smallestIsland(grid));
+// console.log(smallestIsland(grid));
