@@ -261,9 +261,12 @@ let grid = [
 ];
 
 function numberOfIslands(grid) {
+  // count of islands
   let count = 0;
+  // keep track of which coords have been seet
   let visited = new Set();
 
+  // loop over each square in the grid
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[r].length; c++) {
       if (exploreIsland(grid, r, c, visited) === true) count++;
@@ -273,21 +276,30 @@ function numberOfIslands(grid) {
 }
 
 function exploreIsland(grid, r, c, visited) {
+  // check to see if the current square exists
   const rowExists = r >= 0 && r < grid.length;
   const colExists = c >= 0 && c < grid[0].length;
 
+  // if not, false
   if (!rowExists || !colExists) return false;
+  // if water, false
   if (grid[r][c] === "w") return false;
 
+  // make a string for the visited set
   const position = r + "," + c;
+  // if we've already been here, false
   if (visited.has(position)) return false;
+  // if not, let's add it
   visited.add(position);
 
+  // recursilvely call on all surrounding squares
+  // once these have finished, we've explored a whoel island
   exploreIsland(grid, r - 1, c, visited);
   exploreIsland(grid, r + 1, c, visited);
   exploreIsland(grid, r, c - 1, visited);
   exploreIsland(grid, r, c + 1, visited);
 
+  // end of an island
   return true;
 }
 
