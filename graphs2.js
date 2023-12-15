@@ -342,3 +342,137 @@ function findSize(grid, r, c, visited) {
 }
 
 // console.log(smallestIsland(grid));
+
+// clone graph
+
+class Node {
+  constructor(val = 0, neighbors = []) {
+    this.val = val;
+    this.neighbors = neighbors;
+  }
+}
+
+let node4 = new Node(4);
+let node3 = new Node(3);
+let node2 = new Node(2);
+let node1 = new Node(1, [node2, node4]);
+
+node2.neighbors = [node1, node3];
+node3.neighbors = [node2, node4];
+node4.neighbors = [node1, node3];
+
+let node6 = new Node(6);
+let node5 = new Node(5, [node6]);
+node6.neighbors = [node5];
+
+// utility function to check if clone is the same
+function explore(node, visited = new Set()) {
+  if (!node || visited.has(node)) return;
+
+  console.log(node.val, node.neighbors);
+  visited.add(node);
+
+  for (let neighbor of node.neighbors) {
+    explore(neighbor, visited);
+  }
+}
+
+// old version with problems
+function cloneGraph(node, visited = new Set()) {
+  if (!node || visited.has(node)) return;
+  visited.set(node);
+
+  // console.log(node.val);
+  let newNode = new Node(node.val);
+
+  for (let neighbor of node.neighbors) {
+    newNode.neighbors.push(cloneGraph(neighbor, visited));
+  }
+
+  return newNode;
+}
+
+// 1<>2<>3<>4
+// ^---------
+
+function cloneGraph2(node, visited = new Map()) {
+  // if no node, return
+  if (!node) return;
+  // if we've seen this node, return before cloning
+  // return the clone to add to neighbors arr
+  if (visited.has(node)) return visited.get(node);
+
+  // if we make it this far, it's a new node. Clone it
+  let newNode = new Node(node.val);
+  // add it's key and newNode to the visited map
+  visited.set(node, newNode);
+
+  // look through neighbors
+  for (let neighbor of node.neighbors) {
+    // for each neighbor, call the function again
+    newNode.neighbors.push(cloneGraph2(neighbor, visited));
+  }
+
+  return newNode;
+}
+
+// let cloned = cloneGraph2(node1);
+// explore(cloned);
+
+// cycle detector. returns true if cycle, false if no cycle
+// 1<>2
+// ^--
+
+// this is retarded why doesn't this work!!!!!!!!!
+// function cycleDetector(node, visited = new Set()) {
+//   // look at current node
+//   // if we've seen it, there's a cycle
+//   if (visited.has(node)) {
+//     return true;
+//   } else {
+//     // if not, it's new
+//     // --add the new node to visited
+//     visited.add(node);
+//     console.log(node);
+//   }
+//   // repeat on neighbors
+//   for (let neighbor of node.neighbors) {
+//     cycleDetector(neighbor, visited);
+//   }
+
+function cycleDetector(node) {
+  let stack = [node];
+  let visited = new Set();
+
+  while (stack.length > 0) {
+    let current = stack.pop();
+    if (visited.has(current)) return true;
+    visited.add(current);
+
+    for (let neighbor of current.neighbors) {
+      if (!visited.has(neighbor)) stack.push(neighbor);
+    }
+  }
+  return false;
+}
+
+// console.log(cycleDetector(node1));
+// console.log(cycleDetector(node5));
+
+// chatGPT says that a cycle in an undirected graph means 1 > 2 > 3 > 1 in a 1<>2<>3<>1 graph, not 1<>2 repeatedly. Did not know that...it also spoiled the real solution when explaining this.
+
+function cycleDetector2(node, visited = new Set(), prev = null) {
+  if (visited.has(node)) return true;
+  visited.add(node);
+
+  for (let neighbor of node.neighbors) {
+    if (neighbor !== prev) {
+      // putting this inside an if statement with return true I didn't know to do
+      if (cycleDetector2(neighbor, visited, node)) return true;
+    }
+  }
+  return false;
+}
+
+// console.log(cycleDetector2(node1));
+// console.log(cycleDetector2(node5));
