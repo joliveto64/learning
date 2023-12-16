@@ -269,10 +269,10 @@ nodeZ.neighbors.push(nodeX, nodeY);
 //  |            |
 // node3 ----- node4
 // should be true/possible
-console.log(twoColors(node1));
+// console.log(twoColors(node1));
 
 // nodeX ---- nodeY
 //    \       /
 //      nodeZ
 // should be false/impossible
-console.log(twoColors(nodeX));
+// console.log(twoColors(nodeX));

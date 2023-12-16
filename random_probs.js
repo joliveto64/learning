@@ -246,7 +246,7 @@ function slidingWindow(arr, k) {
 
   // loop over array
   for (let i = 0; i < arr.length; i++) {
-    // add current to total
+    // add moveZerosTest[i] to total
     total += arr[i];
 
     // if >= k - 1, subtract arr[i - k] if there
@@ -262,3 +262,72 @@ function slidingWindow(arr, k) {
 }
 
 // console.log(slidingWindow(slidingArr, 3));
+
+// move zeros: move all zeros to the end "in place", no copy of the array, must maintain order of the non-0 elements
+let moveZerosTest = [0, 1, 0, 3, 12];
+function moveZeros(nums) {
+  let changes = true;
+  while (changes) {
+    changes = false;
+    for (let i = 0; i < moveZerosTest.length; i++) {
+      if (moveZerosTest[i] === 0) continue;
+
+      if (moveZerosTest[i - 1] === 0 && moveZerosTest[i] !== 0) {
+        moveZerosTest[i - 1] = moveZerosTest[i];
+        moveZerosTest[i] = 0;
+
+        changes = true;
+      }
+    }
+  }
+
+  return nums;
+}
+
+// console.log(moveZeros(moveZerosTest));
+
+// min subarray
+// return min length of subarray needed to add up to >= target
+function minSubArrayLen(target, nums) {
+  // let window = 1
+  let window = 1;
+  // loop over array
+  while (window <= nums.length) {
+    let total = 0;
+    for (let i = 0; i < nums.length; i++) {
+      // keep running total
+      // for each iteration, subtract arr[i-target] if exists and add current
+      total += nums[i];
+      total = nums[i - window] ? total - nums[i - window] : total;
+      // if total >= target return window
+      if (total >= target) return window;
+      // if no answer, window++ (while window <=numslength)}
+    }
+    window++;
+  }
+  return 0;
+}
+
+// console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]));
+// console.log(minSubArrayLen(4, [1, 4, 4]));
+// console.log(minSubArrayLen(11, [1, 1, 1, 1, 1, 1, 1, 1, 1]));
+
+// reverse string with recursion
+function reverseString(string, newString = "", index = string.length - 1) {
+  if (index < 0) return newString;
+  newString += string[index];
+
+  return reverseString(string, newString, --index);
+}
+
+function reverseString2(string, index) {
+  if (index < 0) {
+    return "";
+  } else {
+    return string[index] + reverseString2(string, index - 1);
+  }
+}
+
+// console.log(reverseString("hello"));
+// let str = "hello";
+// console.log(reverseString2(str, str.length - 1));
