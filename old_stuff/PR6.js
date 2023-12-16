@@ -1,5 +1,5 @@
-import { SinglyLinkedNode } from "./utils.js";
-import { SinglyLinkedList } from "./utils.js";
+import { SinglyLinkedNode } from "../utils.js";
+import { SinglyLinkedList } from "../utils.js";
 
 // RANSOM NOTE 2 ///////////////////////////////////////
 ////////////////////////////////////////////////////////
