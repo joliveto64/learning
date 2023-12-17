@@ -43,14 +43,14 @@ function quickSort(arr) {
   if (arr.length <= 1) return arr;
 
   let pivot = arr[0];
-  let left = [];
-  let right = [];
+  let leftCount = [];
+  let rightCount = [];
 
   for (let i = 0; i < arr.length; i++) {
-    arr[i] < pivot ? left.push(arr[i]) : right.push(arr[i]);
+    arr[i] < pivot ? leftCount.push(arr[i]) : rightCount.push(arr[i]);
   }
 
-  return [...quickSort(left), pivot, ...quickSort(right)];
+  return [...quickSort(leftCount), pivot, ...quickSort(rightCount)];
 }
 
 // console.log(isAnagram("daN ger", "gA    rd E n"));
@@ -81,21 +81,21 @@ function firstAndLastIndex(arr, target) {
 // console.log(firstAndLastIndex([1, 2, 3, 4, 5], 2));
 // console.log(firstAndLastIndex([1, 2, 3, 4, 5], 9));
 
-// using binary search in n log n time
+// using binary search in log n time
 
 function firstAndLastIndex2(arr, target) {
-  let left = 0;
-  let right = arr.length - 1;
+  let leftCount = 0;
+  let rightCount = arr.length - 1;
   let mid;
 
-  while (left <= right) {
-    mid = Math.floor((left + right) / 2);
+  while (leftCount <= rightCount) {
+    mid = Math.floor((leftCount + rightCount) / 2);
     if (arr[mid] === target) {
       break;
     } else if (arr[mid] > target) {
-      right = mid - 1;
+      rightCount = mid - 1;
     } else {
-      left = mid + 1;
+      leftCount = mid + 1;
     }
   }
 
@@ -132,21 +132,21 @@ function sort(array) {
   if (array.length <= 1) return array;
 
   let pivot = array[0];
-  let left = [];
-  let right = [];
+  let leftCount = [];
+  let rightCount = [];
   let equal = [];
 
   for (let i = 0; i < array.length; i++) {
     if (array[i] < pivot) {
-      left.push(array[i]);
+      leftCount.push(array[i]);
     } else if (array[i] > pivot) {
-      right.push(array[i]);
+      rightCount.push(array[i]);
     } else {
       equal.push(array[i]);
     }
   }
 
-  return [...sort(left), ...equal, ...sort(right)];
+  return [...sort(leftCount), ...equal, ...sort(rightCount)];
 }
 
 // console.log(kthLargestElement([4, 2, 9, 8, 5, 6, 7, 1, 3], 2));
@@ -155,7 +155,7 @@ function sort(array) {
 function symmetricalTree(root) {
   if (!root) return true;
 
-  return isMirror(root.left, root.right);
+  return isMirror(root.leftCount, root.rightCount);
 }
 
 function isMirror(leftTree, rightTree) {
@@ -168,8 +168,8 @@ function isMirror(leftTree, rightTree) {
   }
 
   return (
-    isMirror(leftTree.left, rightTree.right) &&
-    isMirror(leftTree.right, rightTree.left)
+    isMirror(leftTree.leftCount, rightTree.rightCount) &&
+    isMirror(leftTree.rightCount, rightTree.leftCount)
   );
 }
 
@@ -203,15 +203,15 @@ function gasSation(gas, cost) {
 
   for (let i = 0; i < net.length; i++) {
     let gasTank = 0;
-    let count = 0;
+    let currentCount = 0;
     let index = i;
 
     while (true) {
-      if (count === net.length) return index;
+      if (currentCount === net.length) return index;
       gasTank += net[index];
 
       if (gasTank >= 0) {
-        count++;
+        currentCount++;
         index++;
 
         if (index >= net.length) {
@@ -331,3 +331,70 @@ function reverseString2(string, index) {
 // console.log(reverseString("hello"));
 // let str = "hello";
 // console.log(reverseString2(str, str.length - 1));
+
+// invert binary tree
+// mirror rightCount/leftCount and return root
+
+class BinaryNode {
+  constructor(val, leftCount = null, rightCount = null) {
+    this.val = val;
+    this.leftCount = leftCount;
+    this.rightCount = rightCount;
+  }
+}
+
+let node0 = new BinaryNode(0);
+let node4 = new BinaryNode(4);
+let node1 = new BinaryNode(1, node0);
+let node3 = new BinaryNode(3, null, node4);
+let node2 = new BinaryNode(2, node1, node3);
+
+//       2
+//      /\
+//     1  3
+//    /    \
+//   0      4
+
+function print(root) {
+  if (!root) return;
+  console.log(root.val);
+  print(root.leftCount);
+  print(root.rightCount);
+}
+
+function swap(root) {
+  if (!root) return;
+
+  let temp = root.leftCount;
+  root.leftCount = root.rightCount;
+  root.rightCount = temp;
+
+  swap(root.leftCount);
+  swap(root.rightCount);
+}
+
+function invertTree(root) {
+  if (!root) return [];
+
+  let temp = root.leftCount;
+  root.leftCount = root.rightCount;
+  root.rightCount = temp;
+
+  invertTree(root.leftCount);
+  invertTree(root.rightCount);
+
+  return root;
+}
+
+// max depth
+var maxDepth = function (root) {
+  if (!root) return 0;
+
+  let currentCount = 1;
+  let leftCount = maxDepth(root.leftCount);
+  let rightCount = maxDepth(root.rightCount);
+
+  return Math.max(leftCount, rightCount) + currentCount;
+};
+
+console.log(maxDepth(node2));
