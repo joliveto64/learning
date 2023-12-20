@@ -87,4 +87,4 @@ async function animateDfs(network, nodeId, visited = new Set()) {
 }
 
 // Start the recursive DFS animation from node #1, for example
-// animateDfs(network, 1);
+animateDfs(network, 1);

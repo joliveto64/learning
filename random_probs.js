@@ -336,24 +336,23 @@ function reverseString2(string, index) {
 // mirror rightCount/leftCount and return root
 
 class BinaryNode {
-  constructor(val, leftCount = null, rightCount = null) {
+  constructor(val, left = null, right = null) {
     this.val = val;
-    this.leftCount = leftCount;
-    this.rightCount = rightCount;
+    this.left = left;
+    this.right = right;
   }
 }
 
-let node0 = new BinaryNode(0);
-let node4 = new BinaryNode(4);
-let node1 = new BinaryNode(1, node0);
-let node3 = new BinaryNode(3, null, node4);
-let node2 = new BinaryNode(2, node1, node3);
+let node0 = new BinaryNode(10);
+let node3 = new BinaryNode(3);
+let node2 = new BinaryNode(2, node3);
+let node1 = new BinaryNode(1, node2, node0);
 
-//       2
+//       1
 //      /\
-//     1  3
-//    /    \
-//   0      4
+//     2  10
+//    /
+//   3
 
 function print(root) {
   if (!root) return;
@@ -397,4 +396,87 @@ var maxDepth = function (root) {
   return Math.max(leftCount, rightCount) + currentCount;
 };
 
-console.log(maxDepth(node2));
+// console.log(maxDepth(node2));
+
+// symmetric trees
+// if right/left symmetrical, return true, else return false
+function isSymmetric(root) {
+  if (!root) return true;
+
+  let left = root.left;
+  let right = root.right;
+  console.log(root);
+
+  return compare(left, right);
+}
+
+function compare(left, right) {
+  console.log("running");
+  if (!left && !right) return true;
+  if (!left || !right) return false;
+  if (left.val !== right.val) return false;
+  console.log(left);
+
+  if (compare(left.left, right.right) && compare(left.right, right.left)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// console.log(isSymmetric(node2));
+
+// right view again
+function rightSideView(node, level = 0, seen = []) {
+  if (!node) return [];
+
+  if (seen.length === level && node.val !== null) seen.push(node.val);
+  level++;
+
+  rightSideView(node.right, level, seen);
+  rightSideView(node.left, level, seen);
+
+  return seen;
+}
+
+// console.log(rightSideView(node1));
+
+// average of levels
+// find the average of the nodes at each level
+// return averages in an array
+
+function averageOfLevels(root, level = 0, map = new Map()) {
+  if (!root) return;
+
+  if (!map.has(level)) {
+    map.set(level, [root.val]);
+  } else {
+    map.get(level).push(root.val);
+  }
+  level++;
+
+  averageOfLevels(root.left, level, map);
+  averageOfLevels(root.right, level, map);
+
+  return map;
+}
+
+function calcAverages(root) {
+  if (!root) return [];
+
+  const mapOfArrays = averageOfLevels(root);
+  let averages = [];
+
+  for (let [key, array] of mapOfArrays) {
+    let total = 0;
+    let length = array.length;
+    for (let num of array) {
+      total += num;
+    }
+    averages.push(total / length);
+  }
+
+  return averages;
+}
+
+console.log(calcAverages());

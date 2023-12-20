@@ -19,7 +19,6 @@ function explore(node, visited = new Set()) {
 }
 
 // CLONE GRAPH
-// graph to use in problem
 let node4 = new Node(4);
 let node3 = new Node(3);
 let node2 = new Node(2);
@@ -78,7 +77,7 @@ function cycleDetector1(node, visited = new Set()) {
   }
   // repeat on neighbors
   for (let neighbor of node.neighbors) {
-    cycleDetector(neighbor, visited);
+    cycleDetector1(neighbor, visited);
   }
 }
 
