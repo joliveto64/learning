@@ -133,13 +133,12 @@ function cycleDetector3(node, visited = new Set(), prev = null) {
 function bfsPrint(node) {
   // initialize queue and visited set
   let queue = [node];
-  let visited = new Set();
+  let visited = new Set([node]);
   // while queue is not empty
   while (queue.length > 0) {
     let current = queue.shift();
-
     console.log(current.val);
-    visited.add(current);
+
     // --push neighbors to queue
     for (let neighbor of current.neighbors) {
       if (!visited.has(neighbor)) queue.push(neighbor);

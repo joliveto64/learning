@@ -479,4 +479,4 @@ function calcAverages(root) {
   return averages;
 }
 
-console.log(calcAverages());
+// console.log(calcAverages());
