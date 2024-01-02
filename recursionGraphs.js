@@ -17,14 +17,14 @@ node4.neighbors.push(node1, node3);
 // 1 <> 2 <> 3 <> 4 <> 1
 
 // TRAVERSALS
-function explore(node, visited = new Set()) {
+function exploreDfs(node, visited = new Set()) {
   if (!node || visited.has(node)) return;
 
   console.log(node.val);
   visited.add(node);
 
   for (let neighbor of node.neighbors) {
-    explore(neighbor, visited);
+    exploreDfs(neighbor, visited);
   }
 }
 
@@ -61,27 +61,37 @@ function cloneRecursion(oldNode, visited = new Map()) {
   return newNode;
 }
 
-// exploreBfs(node1);
-// let clonedGraph = cloneRecursion(node1);
-// exploreBfs(clonedGraph);
+// 1 > 2 > 3 > 4...1
+function cloneIterative(node) {
+  let newNode = new Node(node.val);
+  let stack = [node];
 
-function cloneGraphBfs(node) {
-  let queue = [node];
   let visited = new Map();
+  visited.set(node, newNode);
 
-  while (queue.length > 0) {
-    let current = queue.shift();
+  while (stack.length > 0) {
+    let current = stack.pop();
 
-    let newNode = new Node(current.val);
     for (let neighbor of current.neighbors) {
       if (!visited.has(neighbor)) {
-        newNode.neighbors.push(neighbor);
+        let newNeighbor = new Node(neighbor.val);
+
+        stack.push(neighbor);
+        visited.set(neighbor, newNeighbor);
       }
+      visited.get(current).neighbors.push(visited.get(neighbor));
     }
-    return newNode;
   }
+  return newNode;
 }
 
-// explore(node1);
-let cloned = cloneGraphBfs(node1);
-explore(cloned);
+exploreDfs(node1);
+// exploreBfs(node1);
+
+// console.log("/////");
+// let clonedGraphRec = cloneRecursion(node1);
+// exploreDfs(clonedGraphRec);
+
+console.log("/////");
+let clonedGraphIterative = cloneIterative(node1);
+exploreDfs(clonedGraphIterative);
