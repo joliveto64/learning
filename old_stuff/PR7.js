@@ -1,7 +1,7 @@
-import { SinglyLinkedNode } from "./utils.js";
-import { SinglyLinkedList } from "./utils.js";
-import { BinaryTreeNode } from "./utils.js";
-import { BinaryTree } from "./utils.js";
+import { SinglyLinkedNode } from "../utils.js";
+import { SinglyLinkedList } from "../utils.js";
+import { BinaryTreeNode } from "../utils.js";
+import { BinaryTree } from "../utils.js";
 
 // MULTIPLY NUMS ///////////////////////////////////////
 ////////////////////////////////////////////////////////

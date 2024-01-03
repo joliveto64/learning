@@ -15,6 +15,10 @@
 function covertZigZag(string, numRows) {
   let lines = {};
 
+  if (numRows === 1) {
+    return string;
+  }
+
   for (let i = 1; i <= numRows; i++) {
     lines[i] = [];
   }
@@ -29,10 +33,10 @@ function covertZigZag(string, numRows) {
     console.log(count);
 
     // count up from 1 to numRows, then back down to 1 (1,2,3,2,1)
-    if (count === numRows) {
+    if (count >= numRows) {
       decrement = true;
     }
-    if (count === 1) {
+    if (count <= 1) {
       decrement = false;
     }
 
@@ -57,9 +61,10 @@ function covertZigZag(string, numRows) {
 // 7. test
 
 // console.log(covertZigZag("hello", 3));
-console.log(covertZigZag("PAYPALISHIRING", 4));
-console.log(covertZigZag("PAYPALISHIRING", 3));
-console.log(covertZigZag("a", 1));
+// console.log(covertZigZag("PAYPALISHIRING", 4));
+// console.log(covertZigZag("PAYPALISHIRING", 3));
+// console.log(covertZigZag("a", 1));
+console.log(covertZigZag("AB", 1));
 
 // Okay so for this problem I got it. I spent the last 10 whole minutes not realizing that you can't say for (let letter of array) vs for (letter letter of object(array)). Other than that is was good.
 
